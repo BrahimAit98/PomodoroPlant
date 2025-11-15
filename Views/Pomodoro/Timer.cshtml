@@ -1,0 +1,186 @@
+@{
+    ViewData["Title"] = "Pomodoro Timer";
+}
+
+<div class="plant-page">
+    <header class="plant-header">
+        <div class="header-dot"></div>
+        <button class="header-menu" type="button">
+            <!-- simple hamburger icon -->
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <main class="plant-main">
+        <div class="plant-circle-wrapper">
+            <!-- Progress ring -->
+            <svg class="progress-ring" viewBox="0 0 220 220">
+                <!-- background track -->
+                <circle
+                    class="progress-ring__track"
+                    cx="110" cy="110" r="90" />
+                <!-- animated progress stroke -->
+                <circle
+                    class="progress-ring__circle"
+                    cx="110" cy="110" r="90" />
+            </svg>
+
+            <!-- Plant that "grows" -->
+            <div class="plant" id="plant">
+                <div class="plant-stem"></div>
+                <div class="plant-leaf leaf-1"></div>
+                <div class="plant-leaf leaf-2"></div>
+                <div class="plant-leaf leaf-3"></div>
+                <div class="plant-leaf leaf-4"></div>
+                <div class="plant-leaf leaf-5"></div>
+                <div class="plant-pot"></div>
+            </div>
+        </div>
+
+        <section class="plant-timer">
+            <div class="plant-time" id="timer">25:00</div>
+            <p class="plant-status" id="label">Focus session ready</p>
+        </section>
+
+        <div class="plant-actions">
+            <button class="primary-btn plant-start" id="start-pause" type="button">
+                Start Timer
+            </button>
+            <button class="ghost-link" id="reset" type="button">
+                Reset
+            </button>
+        </div>
+    </main>
+</div>
+
+@section Scripts {
+<script>
+// --- Timer durations in seconds ---
+const DURATIONS = {
+    focus: 5 * 60,
+    short: 5 * 60,
+    long: 15 * 60
+};
+
+// --- State ---
+let currentMode = 'focus';
+let remainingTime = DURATIONS[currentMode];
+let timerInterval = null;
+let isRunning = false;
+
+// --- Elements ---
+const timerEl = document.getElementById('timer');
+const labelEl = document.getElementById('label');
+const startPauseBtn = document.getElementById('start-pause');
+const resetBtn = document.getElementById('reset');
+const plantEl = document.getElementById('plant');
+const leafEls = document.querySelectorAll('.plant-leaf');
+
+// Progress ring setup
+const progressCircle = document.querySelector('.progress-ring__circle');
+const PROGRESS_RADIUS = 90;
+const PROGRESS_CIRCUMFERENCE = 2 * Math.PI * PROGRESS_RADIUS;
+
+progressCircle.style.strokeDasharray = `${PROGRESS_CIRCUMFERENCE} ${PROGRESS_CIRCUMFERENCE}`;
+progressCircle.style.strokeDashoffset = PROGRESS_CIRCUMFERENCE;
+
+// Format seconds → "MM:SS"
+function formatTime(seconds) {
+    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    return `${m}:${s}`;
+}
+
+// Update progress ring + plant growth based on how much time has passed
+function updateProgressAndPlant() {
+    const total = DURATIONS[currentMode];
+    const elapsed = total - remainingTime;
+    const progress = Math.max(0, Math.min(1, elapsed / total)); // 0–1
+
+    // Circular progress ring
+    const offset = PROGRESS_CIRCUMFERENCE * (1 - progress);
+    progressCircle.style.strokeDashoffset = offset;
+
+    // Plant overall growth (scale)
+    plantEl.style.setProperty('--growth', progress);
+
+    // Show more leaves over time (5 leaves → one every 5 minutes in focus mode)
+    leafEls.forEach((leaf, index) => {
+        const threshold = (index + 1) / leafEls.length; // 1/5, 2/5, ...
+        const visible = progress >= threshold * 0.98;   // appear near threshold
+        leaf.classList.toggle('leaf-visible', visible);
+    });
+}
+
+// Update timer text + status label
+function updateDisplay() {
+    timerEl.textContent = formatTime(remainingTime);
+
+    if (currentMode === 'focus') {
+        labelEl.textContent = isRunning ? 'Focus session active' : 'Focus session ready';
+    } else if (currentMode === 'short') {
+        labelEl.textContent = 'Short break';
+    } else {
+        labelEl.textContent = 'Long break';
+    }
+
+    updateProgressAndPlant();
+}
+
+// For now we always use focus mode on this screen,
+// but this keeps things extendable if you add break modes later.
+function setMode(mode) {
+    currentMode = mode;
+    remainingTime = DURATIONS[mode];
+    stopTimer();
+    updateDisplay();
+}
+
+// Start countdown
+function startTimer() {
+    if (isRunning) return;
+
+    isRunning = true;
+    startPauseBtn.textContent = 'Pause';
+
+    timerInterval = setInterval(() => {
+        remainingTime--;
+        if (remainingTime < 0) remainingTime = 0;
+
+        updateDisplay();
+
+        if (remainingTime === 0) {
+            stopTimer();
+            alert("Time's up!");
+        }
+    }, 1000);
+}
+
+// Stop/pause countdown
+function stopTimer() {
+    isRunning = false;
+    startPauseBtn.textContent = 'Start Timer';
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+// Reset timer to full focus session
+function resetTimer() {
+    remainingTime = DURATIONS[currentMode];
+    stopTimer();
+    updateDisplay();
+}
+
+// --- Events ---
+startPauseBtn.addEventListener('click', () => {
+    isRunning ? stopTimer() : startTimer();
+});
+
+resetBtn.addEventListener('click', resetTimer);
+
+// Initial render
+setMode('focus');
+</script>
+}

@@ -35,3 +35,216 @@ body {
 .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* ========== Pomodoro Plant page ========== */
+
+body {
+    background-color: #faf5ea;
+}
+
+.plant-page {
+    min-height: 100vh;
+    padding: 32px 24px 48px;
+    display: flex;
+    flex-direction: column;
+}
+
+.plant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto 24px;
+}
+
+.header-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #215f3a;
+}
+
+.header-menu {
+    width: 28px;
+    height: 24px;
+    border: none;
+    background: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.header-menu span {
+    display: block;
+    height: 2px;
+    border-radius: 999px;
+    background-color: #222;
+}
+
+/* Center area with plant + timer */
+.plant-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+/* Progress ring + plant */
+.plant-circle-wrapper {
+    position: relative;
+    width: 260px;
+    height: 260px;
+}
+
+/* SVG ring */
+.progress-ring {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg); /* start from top */
+}
+
+.progress-ring__track {
+    fill: none;
+    stroke: #e7eadb;
+    stroke-width: 14;
+}
+
+.progress-ring__circle {
+    fill: none;
+    stroke: #215f3a;
+    stroke-width: 14;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.4s ease;
+}
+
+/* Plant drawing (very simple CSS plant) */
+.plant {
+    --growth: 0; /* 0–1, controlled by JS */
+
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%) scale(calc(0.7 + var(--growth) * 0.4));
+    transform-origin: bottom center;
+    width: 120px;
+    height: 160px;
+}
+
+/* Stem */
+.plant-stem {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    width: 6px;
+    height: 70px;
+    background-color: #215f3a;
+    border-radius: 999px;
+    transform: translateX(-50%);
+}
+
+/* Leaves (show more over time) */
+.plant-leaf {
+    position: absolute;
+    width: 40px;
+    height: 22px;
+    border-radius: 40px 40px 40px 40px;
+    background-color: #2e7b4b;
+    opacity: 0;
+    transform-origin: bottom center;
+    transform: scale(0.7);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Individual leaf positions */
+.leaf-1 { bottom: 80px; left: 35%; transform: rotate(-22deg); }
+.leaf-2 { bottom: 95px; right: 35%; transform: rotate(22deg); }
+.leaf-3 { bottom: 105px; left: 50%; transform: translateX(-50%); }
+.leaf-4 { bottom: 65px; left: 25%; transform: rotate(-28deg); }
+.leaf-5 { bottom: 70px; right: 25%; transform: rotate(28deg); }
+
+/* When JS adds this class, leaves "appear" */
+.leaf-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Pot */
+.plant-pot {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    width: 70px;
+    height: 40px;
+    background: #b87133;
+    border-radius: 0 0 16px 16px;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+}
+
+.plant-pot::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 90px;
+    height: 20px;
+    background: #c98442;
+    border-radius: 12px;
+    transform: translateX(-50%);
+}
+
+/* Timer text + button */
+.plant-timer {
+    text-align: center;
+}
+
+.plant-time {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #25523b;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+}
+
+.plant-status {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #647b6a;
+}
+
+.plant-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.primary-btn.plant-start {
+    padding: 14px 40px;
+    border-radius: 999px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #215f3a;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(23, 86, 50, 0.35);
+}
+
+.primary-btn.plant-start:active {
+    transform: translateY(1px);
+    box-shadow: 0 6px 16px rgba(23, 86, 50, 0.3);
+}
+
+.ghost-link {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.85rem;
+    color: #6b7280;
+    cursor: pointer;
+    text-decoration: underline;
+}
