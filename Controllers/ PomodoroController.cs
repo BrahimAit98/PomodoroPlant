@@ -1,15 +1,28 @@
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PomodoroPlant.Controllers
+public class PomodoroController : Controller
 {
-    // Controller responsible for Pomodoro-related pages
-    public class PomodoroController : Controller
+    [HttpPost]
+    public async Task<IActionResult> Buzz()
     {
-        // GET: /Pomodoro/Timer
-        // Returns the Timer view (Views/Pomodoro/Timer.cshtml)
-        public IActionResult Timer()
+        using var http = new HttpClient();
+        var espUrl = "http://<ESP_IP_ADDRESS>/buzz";
+        try
         {
-            return View();
+            var response = await http.GetAsync(espUrl);
+            var content = await response.Content.ReadAsStringAsync();
+            return Ok(content);
         }
+        catch
+        {
+            return StatusCode(500, "ESP not reachable");
+        }
+    }
+
+    public IActionResult Timer()
+    {
+        return View();
     }
 }

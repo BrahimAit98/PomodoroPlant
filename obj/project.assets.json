@@ -8,19 +8,19 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Shugr\\.nuget\\packages\\": {}
+    "/Users/iqra/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Shugr\\PomodoroPlant\\PomodoroPlant.csproj",
+      "projectUniqueName": "/Users/iqra/Desktop/Projects/PomodoroPlant/PomodoroPlant.csproj",
       "projectName": "PomodoroPlant",
-      "projectPath": "C:\\Users\\Shugr\\PomodoroPlant\\PomodoroPlant.csproj",
-      "packagesPath": "C:\\Users\\Shugr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Shugr\\PomodoroPlant\\obj\\",
+      "projectPath": "/Users/iqra/Desktop/Projects/PomodoroPlant/PomodoroPlant.csproj",
+      "packagesPath": "/Users/iqra/.nuget/packages/",
+      "outputPath": "/Users/iqra/Desktop/Projects/PomodoroPlant/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Shugr\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/iqra/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -68,7 +68,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
