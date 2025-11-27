@@ -41,6 +41,7 @@ body {
 
 body {
   background-color: #faf5ea;
+  padding: 20px;
 }
 
 .plant-page {
@@ -54,13 +55,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 900px;
-  margin: 0 auto 24px;
+  max-width: 650px;
+  margin: 20px auto 24px;
 }
 
 .header-dot {
-  width: 28px;
-  height: 28px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: #215f3a;
 }
@@ -97,8 +98,8 @@ body {
 /* Progress ring + plant */
 .plant-circle-wrapper {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 350px;
+  height: 350px;
 }
 
 /* SVG ring */
@@ -111,13 +112,13 @@ body {
 .progress-ring__track {
   fill: none;
   stroke: #e7eadb;
-  stroke-width: 14;
+  stroke-width: 7;
 }
 
 .progress-ring__circle {
   fill: none;
   stroke: #215f3a;
-  stroke-width: 14;
+  stroke-width: 7;
   stroke-linecap: round;
   transition: stroke-dashoffset 0.4s ease;
 }
@@ -223,7 +224,7 @@ body {
 }
 
 .plant-time {
-  font-size: 2.8rem;
+  font-size: 4rem;
   font-weight: 700;
   color: #25523b;
   letter-spacing: 0.06em;
@@ -252,7 +253,6 @@ body {
   background-color: #215f3a;
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(23, 86, 50, 0.35);
 }
 
 .primary-btn.plant-start:active {
@@ -268,4 +268,10 @@ body {
   color: #6b7280;
   cursor: pointer;
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .plant-main {
+    justify-content: flex-start;
+  }
 }
