@@ -1,0 +1,56 @@
+@{
+    ViewData["Title"] = "Onboarding";
+}
+
+<!-- GLOBAL NAV – same as homepage -->
+<nav class="main-nav">
+    <div class="nav-left">
+        <div class="nav-logo-dot"></div>
+    </div>
+
+    <div class="nav-links">
+        <a asp-controller="Home" asp-action="Index">Timer</a>
+        <a asp-controller="Garden" asp-action="Index">Garden</a>
+        <a asp-controller="Stats" asp-action="Index">Stats</a>
+    </div>
+</nav>
+
+<main class="onboarding-page">
+    <!-- right leaves decoration -->
+    <img src="~/img/homeplant.png.png"
+         alt="Plant decoration"
+         class="onboarding-leaves-right" />
+
+    <div class="onboarding-inner">
+        <h1 class="onboarding-title">
+            To begin, you’ll need your<br />
+            Pomodoro Buzzer.
+        </h1>
+
+        <p class="onboarding-subtitle">
+            Connect your real Pomodoro Buzzer to start growing your digital plant.
+        </p>
+
+        <div class="onboarding-tomato-wrapper">
+            <img src="~/img/tomato.png.png"
+                 alt="Pomodoro Buzzer"
+                 class="onboarding-tomato" />
+        </div>
+
+
+        <div class="onboarding-actions-shadow">
+            <div class="onboarding-actions">
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="btn-pill btn-pill-outline">
+                    Get started
+                </a>
+
+                <a href="#"
+                   class="btn-pill btn-pill-primary">
+                    Buy the buzzer
+                </a>
+            </div>
+        </div>
+    </div>
+</main>

@@ -95,4 +95,4 @@ C:\Users\Shugr\PomodoroPlant\obj\Debug\net10.0\refint\PomodoroPlant.dll
 C:\Users\Shugr\PomodoroPlant\obj\Debug\net10.0\PomodoroPlant.pdb
 C:\Users\Shugr\PomodoroPlant\obj\Debug\net10.0\PomodoroPlant.genruntimeconfig.cache
 C:\Users\Shugr\PomodoroPlant\obj\Debug\net10.0\ref\PomodoroPlant.dll
-C:\Users\Shugr\PomodoroPlant\obj\Debug\net10.0\compressed\so0kzm6yjb-{0}-njrqsjl0kt-njrqsjl0kt.gz
+C:\Users\Shugr\PomodoroPlant\obj\Debug\net10.0\compressed\so0kzm6yjb-{0}-vgk7wtq4y3-vgk7wtq4y3.gz

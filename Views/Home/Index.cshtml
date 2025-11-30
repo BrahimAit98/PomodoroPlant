@@ -2,19 +2,20 @@
     ViewData["Title"] = "Home";
 }
 
+<!-- GLOBAL NAV (same one you'll reuse on onboarding) -->
+<nav class="main-nav">
+    <div class="nav-left">
+        <div class="nav-logo-dot"></div>
+    </div>
+
+    <div class="nav-links">
+        <a asp-controller="Home" asp-action="Index">Timer</a>
+        <a asp-controller="Garden" asp-action="Index">Garden</a>
+        <a asp-controller="Stats" asp-action="Index">Stats</a>
+    </div>
+</nav>
+
 <div class="hero">
-
-    <!-- Top navigation -->
-    <header class="hero-nav">
-        <div class="hero-logo-dot"></div>
-
-        <nav class="hero-menu">
-            <a href="/Timer">Timer</a>
-            <a href="/Garden">Garden</a>
-            <a href="/Stats">Stats</a>
-        </nav>
-    </header>
-
     <!-- Decorative plants -->
     <img src="~/img/homeplant.png.png" class="hero-plant hero-plant-top" alt="Plant decoration" />
     <img src="~/img/homeplant.png.png" class="hero-plant hero-plant-bottom" alt="Plant decoration" />
@@ -29,7 +30,14 @@
             <p class="hero-subtitle">
                 Press the buzzer. Grow your plant
             </p>
-            <a href="/Timer" class="hero-button">Get started</a>
+
+            <!-- Use the pill button style you defined in CSS -->
+            <a asp-controller="Onboarding"
+   asp-action="Index"
+   class="btn-pill btn-pill-primary">
+    Get started
+</a>
+
         </section>
 
         <section class="hero-right">
@@ -38,5 +46,4 @@
             </div>
         </section>
     </main>
-
 </div>
