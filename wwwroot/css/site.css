@@ -578,3 +578,217 @@ body {
         display: none; /* keep mobile clean */
     }
 }
+/* =====================================
+   BUY BUZZER PAGE
+   ===================================== */
+
+.buy-page {
+    min-height: 100vh;
+    padding: 32px 80px 48px;
+    background-color: #FCF7F0;
+}
+
+/* Two columns: images left, text right */
+.buy-layout {
+    max-width: 1200px;
+    margin: 80px auto 0; /* room under nav */
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.2fr);
+    gap: 56px;
+    align-items: flex-start;
+}
+
+/* LEFT: big image + thumbs */
+.buy-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.buy-main-image-card {
+    background-color: #F8E6D2;
+    border-radius: 32px;
+    padding: 40px 32px;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buy-main-image {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.buy-thumbs {
+    display: flex;
+    gap: 16px;
+}
+
+.buy-thumb-card {
+    flex: 1;
+    padding: 16px 10px;
+    border-radius: 20px;
+    background-color: #F8E6D2;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s ease, transform 0.15s ease,
+                box-shadow 0.15s ease;
+}
+
+.buy-thumb-card img {
+    max-width: 80px;
+    height: auto;
+    display: block;
+}
+
+.buy-thumb-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.buy-thumb-card.is-active {
+    border-color: #1F4D33;
+}
+
+/* RIGHT: title, price, cards */
+.buy-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.buy-title {
+    font-size: 42px;
+    line-height: 1.05;
+    font-weight: 700;
+    color: #1F4D33;
+    margin-bottom: 4px;
+}
+
+.buy-subtitle {
+    font-size: 14px;
+    color: #326544;
+    max-width: 420px;
+}
+
+.buy-price-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.buy-price {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1F4D33;
+}
+
+.buy-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-size: 13px;
+    color: #2f6b44;
+}
+
+.buy-benefit {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.buy-benefit-icon {
+    font-size: 16px;
+}
+
+.buy-cta {
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+/* Feature cards row */
+.buy-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.buy-feature-card {
+    background-color: #E6E7E1;
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 13px;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
+}
+
+.buy-feature-card h3 {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+/* Specs cards */
+.buy-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.buy-spec-card {
+    background-color: #E6E7E1;
+    border-radius: 14px;
+    padding: 16px 18px;
+    font-size: 13px;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
+}
+
+.buy-spec-card h3 {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.buy-spec-card ul {
+    list-style: disc;
+    padding-left: 18px;
+    margin: 0;
+}
+
+/* Responsive for tablets/phones */
+@media (max-width: 1024px) {
+    .buy-layout {
+        grid-template-columns: 1fr;
+        max-width: 720px;
+        margin-top: 96px;
+    }
+
+    .buy-details {
+        order: -1; /* text above gallery on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .buy-page {
+        padding: 20px 20px 40px;
+    }
+
+    .buy-layout {
+        margin-top: 90px;
+        gap: 32px;
+    }
+
+    .buy-main-image-card {
+        padding: 28px 20px;
+    }
+
+    .buy-feature-grid,
+    .buy-specs-grid {
+        grid-template-columns: 1fr;
+    }
+}
