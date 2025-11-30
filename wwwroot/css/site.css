@@ -792,3 +792,140 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =====================================
+   ACTIVATION PAGE
+   ===================================== */
+
+.activation-page {
+    min-height: 100vh;
+    padding: 120px 80px 56px;  /* room for fixed nav */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.activation-inner {
+    max-width: 720px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Headline + subtitle */
+
+.activation-title {
+    font-size: clamp(2.4rem, 3.4vw, 2.9rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: #1F4D33;
+    margin-bottom: 16px;
+}
+
+.activation-subtitle {
+    font-size: 0.98rem;
+    color: #2f6b44;
+    margin-bottom: 32px;
+}
+
+/* Code boxes */
+
+.activation-code-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.activation-box {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    border: 1px solid #ddcfc0;
+    background-color: #FCF7F0;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #1F4D33;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.activation-box:focus {
+    border-color: #1F4D33;
+    box-shadow: 0 0 0 2px rgba(31, 77, 51, 0.15);
+    transform: translateY(-1px);
+}
+
+/* Button */
+
+.activation-submit {
+    margin-top: 4px;
+}
+
+/* Decorative leaves – similar style as other pages */
+
+.activation-page::before,
+.activation-page::after {
+    content: "";
+    position: absolute;
+    background-image: url("../img/homeplant.png.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+    opacity: 0.96;
+}
+
+/* Bottom-left cluster */
+.activation-page::before {
+    width: 350px;
+    height: 350px;
+    bottom: -3px;
+    left: -28px;
+    transform: rotate(-8deg);
+}
+
+/* Right-side cluster */
+.activation-page::after {
+    width: 360px;
+    height: 332px;
+    top: 80px;
+    right: -20px;
+    transform: rotate(220deg);
+}
+
+
+
+/* Right-side leaves (uses same image, flipped) */
+.onboarding-leaves-right {
+    position: absolute;
+    top: 170px;
+    right: 0px;
+    width: 360px;
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+    transform: scaleX(-1) rotate(60deg);
+    opacity: 0.96;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 768px) {
+    .activation-page {
+        padding: 110px 20px 48px;
+    }
+
+    .activation-code-inputs {
+        gap: 8px;
+    }
+
+    .activation-box {
+        width: 46px;
+        height: 46px;
+        font-size: 20px;
+    }
+}
+

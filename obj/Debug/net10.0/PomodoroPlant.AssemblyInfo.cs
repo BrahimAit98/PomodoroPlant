@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PomodoroPlant")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e89d67065f2d24521daba3990e65deda921957d0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+66c40d2eca5812b183fb04b7676c85eec9061e15")]
 [assembly: System.Reflection.AssemblyProductAttribute("PomodoroPlant")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PomodoroPlant")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
