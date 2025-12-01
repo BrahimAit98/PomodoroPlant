@@ -8,14 +8,6 @@ html {
   }
 }
 
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 html {
   position: relative;
   min-height: 100%;
@@ -25,6 +17,21 @@ body {
   margin: 0;
   background-color: #faf5ea;
   font-family: "Nohemi Bold";
+}
+
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
 }
 
 .plant-header {
@@ -321,11 +328,12 @@ button:focus-visible {
   border-radius: 12px;
   width: 200px;
   min-width: 160px;
+  position: relative;
 }
 
 .garden-plant-image {
   width: auto;
-  height: 150px;
+  height: 175px;
   margin: auto;
   object-fit: cover;
 }
@@ -334,6 +342,120 @@ button:focus-visible {
   margin: 0;
   font-size: 0.8rem;
   text-align: center;
+}
+
+.garden-plant-card:has(.locked-plant-overlay) .garden-plant-image {
+  filter: blur(4px);
+}
+
+.garden-plant-card:has(.locked-plant-overlay) .garden-plant-label {
+  color: #000;
+}
+
+.locked-plant-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #8b99926b;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.locked-plant-overlay svg {
+  width: 48px;
+  height: 48px;
+  color: white;
+}
+
+.locked-plant-text {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+
+/* Plant Modal */
+.plant-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.plant-modal-content {
+  background-color: #faf5ea;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.plant-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 2px solid #e6e7e1;
+}
+
+.plant-modal-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #215f3a;
+}
+
+.plant-modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.plant-modal-close:hover {
+  color: #333;
+}
+
+.plant-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.plant-modal-icon {
+  width: 64px;
+  height: 64px;
+  color: #215f3a;
+}
+
+.plant-modal-text {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
 }
 
 @media (max-width: 768px) {
