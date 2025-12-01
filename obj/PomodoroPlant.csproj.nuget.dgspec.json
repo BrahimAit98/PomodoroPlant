@@ -1,25 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Shugr\\PomodoroPlant\\PomodoroPlant.csproj": {}
+    "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Shugr\\PomodoroPlant\\PomodoroPlant.csproj": {
+    "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Shugr\\PomodoroPlant\\PomodoroPlant.csproj",
+        "projectUniqueName": "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj",
         "projectName": "PomodoroPlant",
-        "projectPath": "C:\\Users\\Shugr\\PomodoroPlant\\PomodoroPlant.csproj",
-        "packagesPath": "C:\\Users\\Shugr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Shugr\\PomodoroPlant\\obj\\",
+        "projectPath": "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj",
+        "packagesPath": "/Users/brahimait/.nuget/packages/",
+        "outputPath": "/Users/brahimait/Projects/PomodoroPlant/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Shugr\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/brahimait/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,6 +44,18 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -62,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
