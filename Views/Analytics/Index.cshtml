@@ -56,7 +56,14 @@
 
         <!-- Weekly Activity Chart -->
         <div class="analytics-container">
-          <h2 class="analytics-section-title">Weekly Activity</h2>
+          <div class="analytics-top-bar">
+            <h2 class="analytics-section-title">Weekly Focused Hours</h2>
+            <div class="analytics-timeframe-selector">
+              <button class="analytics-timeframe-button analytics-timeframe-button--active">This Week</button>
+              <button class="analytics-timeframe-button">Last Week</button>
+              <button class="analytics-timeframe-button">This Month</button>
+            </div>
+          </div>
           <div class="analytics-chart">
             <div class="analytics-bar-group" data-value="3.0">
               <div class="analytics-bar" style="height: 60%">
@@ -147,3 +154,87 @@
     </section>
   </main>
 </div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeframeButtons = document.querySelectorAll('.analytics-timeframe-button');
+    
+    timeframeButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        timeframeButtons.forEach(btn => btn.classList.remove('analytics-timeframe-button--active'));
+        
+        // Add active class to clicked button
+        this.classList.add('analytics-timeframe-button--active');
+        
+        // Get the timeframe text
+        const timeframe = this.textContent.trim();
+        
+        // Update chart based on selected timeframe
+        updateChart(timeframe);
+      });
+    });
+    
+    function updateChart(timeframe) {
+      // Example data for different timeframes
+      const chartData = {
+        'This Week': [
+          { day: 'Mon', hours: 3.0 },
+          { day: 'Tue', hours: 4.0 },
+          { day: 'Wed', hours: 2.2 },
+          { day: 'Thu', hours: 4.5 },
+          { day: 'Fri', hours: 3.5 },
+          { day: 'Sat', hours: 1.5 },
+          { day: 'Sun', hours: 2.5 }
+        ],
+        'Last Week': [
+          { day: 'Mon', hours: 2.5 },
+          { day: 'Tue', hours: 3.0 },
+          { day: 'Wed', hours: 4.0 },
+          { day: 'Thu', hours: 2.8 },
+          { day: 'Fri', hours: 3.2 },
+          { day: 'Sat', hours: 2.0 },
+          { day: 'Sun', hours: 1.8 }
+        ],
+        'This Month': [
+          { day: 'Week 1', hours: 18.5 },
+          { day: 'Week 2', hours: 22.0 },
+          { day: 'Week 3', hours: 19.5 },
+          { day: 'Week 4', hours: 21.2 }
+        ]
+      };
+      
+      const data = chartData[timeframe];
+      const maxHours = Math.max(...data.map(d => d.hours));
+      
+      // Get all bar groups
+      const barGroups = document.querySelectorAll('.analytics-bar-group');
+      
+      // First, show all bars (important for switching back from month view)
+      barGroups.forEach(group => {
+        group.style.display = 'flex';
+      });
+      
+      // Update chart bars with new data
+      data.forEach((item, index) => {
+        if (barGroups[index]) {
+          const bar = barGroups[index].querySelector('.analytics-bar');
+          const tooltip = barGroups[index].querySelector('.analytics-bar-tooltip');
+          const label = barGroups[index].querySelector('.analytics-bar-label');
+          const heightPercent = (item.hours / maxHours) * 100;
+          
+          bar.style.height = heightPercent + '%';
+          tooltip.textContent = item.hours + ' hrs';
+          label.textContent = item.day;
+          barGroups[index].setAttribute('data-value', item.hours);
+        }
+      });
+      
+      // Hide extra bars if month view has fewer items
+      for (let i = data.length; i < barGroups.length; i++) {
+        barGroups[i].style.display = 'none';
+      }
+    }
+  });
+</script>

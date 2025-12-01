@@ -536,8 +536,34 @@ button:focus-visible {
   font-size: 1.1rem;
   font-weight: 700;
   color: #333333;
-  margin: 0 0 24px 0;
   text-align: left;
+}
+
+.analytics-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  margin: 0 0 24px 0;
+}
+
+.analytics-timeframe-selector {
+  display: flex;
+  gap: 8px;
+}
+.analytics-timeframe-button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: transparent;
+  color: #333333;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.analytics-timeframe-button--active {
+  background-color: #215f3a;
+  color: white;
 }
 
 .analytics-chart {
