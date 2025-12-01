@@ -2,27 +2,56 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-public class PomodoroController : Controller
+namespace PomodoroPlant.Controllers
 {
-    [HttpPost]
-    public async Task<IActionResult> Buzz()
+    public class PomodoroController : Controller
     {
-        using var http = new HttpClient();
-        var espUrl = "http://<ESP_IP_ADDRESS>/buzz";
-        try
-        {
-            var response = await http.GetAsync(espUrl);
-            var content = await response.Content.ReadAsStringAsync();
-            return Ok(content);
-        }
-        catch
-        {
-            return StatusCode(500, "ESP not reachable");
-        }
-    }
+        // Put the ESP32 base URL in ONE place
+        private const string EspBaseUrl = "http://192.168.1.42"; // <-- change to their ESP32 IP
 
-    public IActionResult Timer()
-    {
-        return View();
+        [HttpPost]
+        public async Task<IActionResult> Buzz()
+        {
+            using var http = new HttpClient();
+            var espUrl = $"{EspBaseUrl}/buzz";
+
+            try
+            {
+                var response = await http.GetAsync(espUrl);
+                var content = await response.Content.ReadAsStringAsync();
+                return Ok(content);
+            }
+            catch
+            {
+                return StatusCode(500, "ESP not reachable");
+            }
+        }
+
+        // POST /Pomodoro/UpdateMode?mode=focus
+        [HttpPost]
+        public async Task<IActionResult> UpdateMode(string mode)
+        {
+            if (string.IsNullOrWhiteSpace(mode))
+                return BadRequest("Mode is required");
+
+            using var http = new HttpClient();
+            var espUrl = $"{EspBaseUrl}/mode?name={mode}";
+
+            try
+            {
+                var response = await http.GetAsync(espUrl);
+                var content = await response.Content.ReadAsStringAsync();
+                return Ok(content);
+            }
+            catch
+            {
+                return StatusCode(500, "ESP not reachable");
+            }
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

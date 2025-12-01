@@ -4,15 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PomodoroPlant.Controllers
 {
-    public class AccountController : Controller
+    public class GardenController : Controller
     {
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Login()
         {
             return View();
         }

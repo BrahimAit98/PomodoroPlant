@@ -1,13 +1,13 @@
 ﻿// timer.js
 (() => {
-  'use strict';
+  "use strict";
 
   // ========== TIMER CONFIG ==========
 
   const DURATIONS = {
-    focus: 0.1 * 60,   // 6 seconds for testing
+    focus: 25 * 60,
     short: 5 * 60,
-    long: 15 * 60
+    long: 15 * 60,
   };
 
   let currentMode = "focus";
@@ -56,7 +56,7 @@
   }
 
   function updateModeButtonAria() {
-    modeButtons.forEach(btn => {
+    modeButtons.forEach((btn) => {
       const btnMode = btn.getAttribute("data-mode");
       const isActive = btnMode === currentMode;
       btn.setAttribute("aria-pressed", isActive ? "true" : "false");
@@ -72,7 +72,9 @@
       if (currentMode === "focus") {
         labelEl.textContent = timerCompleted
           ? "Pomodoro finished"
-          : (isRunning ? "Focus session in progress..." : "Focus session ready to start");
+          : isRunning
+          ? "Focus session in progress..."
+          : "Focus session ready to start";
       } else if (currentMode === "short") {
         labelEl.textContent = timerCompleted
           ? "Short break finished"
@@ -95,19 +97,28 @@
   // ========== ESP BUZZER ==========
 
   function buzzESP() {
-  // 👉 Call your ASP.NET controller, NOT the ESP directly
-  fetch("/Pomodoro/Buzz", { method: "POST" })
-    .then(res => res.text())
-    .then(txt => console.log("Server response:", txt))
-    .catch(err => console.error("Server error:", err));
-}
+    // 👉 Call your ASP.NET controller, NOT the ESP directly
+    fetch("/Pomodoro/Buzz", { method: "POST" })
+      .then((res) => res.text())
+      .then((txt) => console.log("Server response:", txt))
+      .catch((err) => console.error("Server error:", err));
+  }
+
+  function sendModeToServer(mode) {
+    fetch(`/Pomodoro/UpdateMode?mode=${encodeURIComponent(mode)}`, {
+      method: "POST",
+    })
+      .then((res) => res.text())
+      .then((txt) => console.log("Mode update response:", txt))
+      .catch((err) => console.error("Mode update error:", err));
+  }
 
   function notifyCompletion() {
     // Trigger the physical buzzer
     buzzESP();
 
     completionSound.currentTime = 0;
-    completionSound.play().catch(() => { });
+    completionSound.play().catch(() => {});
 
     if (typeof window !== "undefined" && "Notification" in window) {
       if (Notification.permission === "granted") {
@@ -175,13 +186,18 @@
     stopTimerInternal(false);
     remainingTime = DURATIONS[mode];
     timerCompleted = false;
+
+    // reset plant
     if (typeof window.setPlantProgress === "function") {
       window.setPlantProgress(0);
     }
+
     updateModeButtonAria();
     updateDisplay();
-  }
 
+    // 👉 tell ESP to update its screen
+    sendModeToServer(mode);
+  }
   // ========== INIT ==========
 
   function initTimer() {
@@ -193,8 +209,7 @@
     modeButtons = document.querySelectorAll(".mode-btn");
 
     if (progressCircle) {
-      progressCircle.style.strokeDasharray =
-        `${PROGRESS_CIRCUMFERENCE} ${PROGRESS_CIRCUMFERENCE}`;
+      progressCircle.style.strokeDasharray = `${PROGRESS_CIRCUMFERENCE} ${PROGRESS_CIRCUMFERENCE}`;
       progressCircle.style.strokeDashoffset = PROGRESS_CIRCUMFERENCE;
     }
 
@@ -208,7 +223,7 @@
       resetBtn.addEventListener("click", resetTimer);
     }
 
-    modeButtons.forEach(btn =>
+    modeButtons.forEach((btn) =>
       btn.addEventListener("click", () => {
         const newMode = btn.getAttribute("data-mode");
         if (newMode) setMode(newMode);
@@ -218,6 +233,9 @@
     // Initial state
     updateModeButtonAria();
     updateDisplay();
+
+    // 👉 NEW: tell ESP initial mode (focus) when page loads
+    sendModeToServer(currentMode);
   }
 
   window.addEventListener("load", initTimer);

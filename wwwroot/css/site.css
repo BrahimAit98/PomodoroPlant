@@ -51,6 +51,10 @@ body {
   fill: #333333;
   height: auto;
 }
+.header-right:hover svg {
+  fill: #cadbd3;
+}
+
 .header-right {
   display: flex;
   align-items: center;
@@ -233,7 +237,8 @@ body {
 }
 
 .primary-btn:hover {
-  background-color: #2a7449;
+  background-color: #cadbd3;
+  color: #333;
   transform: translateY(-1px);
 }
 
@@ -266,8 +271,8 @@ body {
 }
 
 .ghost-btn:hover {
-  background-color: #f3f4f6;
-  border-color: #9ca3af;
+  background-color: #cadbd3;
+  border-color: #cadbd3;
 }
 
 /* Betere focus styles voor keyboard-navigatie */
@@ -277,12 +282,66 @@ button:focus-visible {
 }
 
 /* --- Media Query afmetingen --- */
-@@media (max-width: 768px) {
+@media (max-width: 768px) {
   .plant-card {
     padding: 20px 14px 24px;
   }
 
   .plant-time {
     font-size: 2.8rem;
+  }
+  .plant-header {
+    padding: 0 20px;
+  }
+}
+/* ========== Garden Page ========== */
+.garden-page {
+  padding: 24px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.garden-plants-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  width:100%;
+  max-width: 800px;
+  margin-top: 50px;
+}
+
+.garden-plant-card {
+  background-color: #e6e7e1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  width: 200px;
+  min-width: 160px;
+}
+
+.garden-plant-image {
+  width: auto;
+  height: 150px;
+  margin: auto;
+  object-fit: cover;
+}
+
+.garden-plant-label {
+  margin: 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+.garden-plant-image {
+    height: 120px;
+  }
+  .garden-plants-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
   }
 }
