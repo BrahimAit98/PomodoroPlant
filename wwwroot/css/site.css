@@ -469,7 +469,7 @@ button:focus-visible {
 }
 
 .analytics-value {
-  font-size: 3.2rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #333333;
   margin: 0 0 10px 0;
@@ -512,6 +512,10 @@ button:focus-visible {
   transition: transform 0.2s;
 }
 
+.analytics-card .analytics-icon {
+  margin-left: -5px;
+}
+
 .analytics-card:hover {
   transform: translateY(-2px);
 }
@@ -521,12 +525,12 @@ button:focus-visible {
 }
 
 .analytics-icon {
-  width: 32px;
-  height: 32px;
+  width: 25px;
+  height: 25px;
   color: #333333;
   stroke-width: 2;
   align-self: flex-start;
-  margin-left: -10px;
+  margin: auto;
 }
 
 .analytics-value {
@@ -559,7 +563,7 @@ button:focus-visible {
 .analytics-stat-item {
   background-color: #e6e7e1;
   border-radius: 12px;
-  padding: 20px 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -605,7 +609,7 @@ button:focus-visible {
   justify-content: space-between;
   align-items: flex-end;
   gap: 8px;
-  height: 180px;
+  height: 90%;
   padding: 0;
 }
 
@@ -621,7 +625,7 @@ button:focus-visible {
 .analytics-bar {
   width: 100%;
   background-color: #333333;
-  border-radius: 4px 4px 0 0;
+  border-radius: 4px;
   transition: background-color 0.2s;
   min-height: 10px;
 }
@@ -678,13 +682,13 @@ button:focus-visible {
 
 .achievement-icon {
   font-size: 1rem;
-  width: 48px;
-  height: 48px;
+  /* width: 48px; */
+  /* height: 48px; */
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
-  border-radius: 50%;
+  /* background-color: #fff; */
+  /* border-radius: 6px; */
   flex-shrink: 0;
 }
 
