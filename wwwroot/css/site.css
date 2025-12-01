@@ -35,6 +35,29 @@ body {
   margin: 20px auto 24px;
 }
 
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #215f3a;
+  text-decoration: none;
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 16px;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  background-color: #215f3a;
+  color: white;
+  cursor: pointer;
+}
+
 .header-dot {
   width: 50px;
   height: 50px;
@@ -43,22 +66,21 @@ body {
 }
 
 .header-menu {
-  width: 28px;
-  height: 24px;
-  border: none;
   background: none;
+  border: none;
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 5px;
   cursor: pointer;
 }
 
 .header-menu span {
   display: block;
-  height: 2px;
+  width: .75em;
+  height: .125rem;
   border-radius: 999px;
-  background-color: #222;
+  background-color: #fff;
 }
 
 .plant-page {
@@ -66,8 +88,8 @@ body {
   padding: 24px 16px 40px;
   display: flex;
   flex-direction: column;
-      align-items: center;
-    }
+  align-items: center;
+}
 
     .plant-top {
       max-width: 640px;
@@ -155,7 +177,7 @@ body {
     }
 
     .plant-status {
-      margin: 4px 0 0;
+      margin: 4px 0 20px 0;
       font-size: 0.9rem;
       color: #647b6a;
     }
@@ -199,13 +221,6 @@ body {
       margin-top: 4px;
     }
 
-    .plant-buttons-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
     .primary-btn {
       padding: 12px 28px;
       border-radius: 999px;
@@ -236,15 +251,21 @@ body {
     }
 
     .ghost-btn {
-      padding: 10px 18px;
+      padding: 12px;
       border-radius: 999px;
       border: 1px solid #d1d5db;
       font-size: 0.85rem;
       background-color: white;
       color: #4b5563;
       cursor: pointer;
-      transition: background-color 0.15s, border-color 0.15s;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.3s ease;
+      margin-left: 8px;
     }
+
+
+.ghost-btn:active {
+  transform: rotate(180deg);
+}
 
     .ghost-btn:hover {
       background-color: #f3f4f6;
@@ -252,7 +273,7 @@ body {
     }
 
     .helper-text {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       color: #9ca3af;
       text-align: center;
       margin-top: 10px;

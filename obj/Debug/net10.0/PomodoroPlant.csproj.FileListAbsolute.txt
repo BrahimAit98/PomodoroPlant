@@ -218,7 +218,6 @@ C:/Users/Shugr/PomodoroPlant/obj/Debug/net10.0/compressed/so0kzm6yjb-{0}-hbu6i9s
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/scopedcss/bundle/PomodoroPlant.styles.css
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/scopedcss/projectbundle/PomodoroPlant.bundle.scp.css
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/njj4vs7d66-{0}-61n19gt1b8-61n19gt1b8.gz
-/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/yg87q262sl-{0}-fr7q2aak1r-fr7q2aak1r.gz
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/vnj7h3eq6n-{0}-bqjiyaj88i-bqjiyaj88i.gz
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/xhpvhl5aka-{0}-c2jlpeoesf-c2jlpeoesf.gz
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/a2edyfso3u-{0}-erw9l3u2r3-erw9l3u2r3.gz
@@ -290,4 +289,6 @@ C:/Users/Shugr/PomodoroPlant/obj/Debug/net10.0/compressed/so0kzm6yjb-{0}-hbu6i9s
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/PomodoroPlant.pdb
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/PomodoroPlant.genruntimeconfig.cache
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/ref/PomodoroPlant.dll
-/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/so0kzm6yjb-{0}-0llt1zpztk-0llt1zpztk.gz
+/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/yg87q262sl-{0}-0yaafqov5m-0yaafqov5m.gz
+/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/vrmii62vrz-{0}-ckh7fd4ku3-ckh7fd4ku3.gz
+/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/so0kzm6yjb-{0}-pcazsy0kfy-pcazsy0kfy.gz
