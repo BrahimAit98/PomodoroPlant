@@ -21,11 +21,7 @@
   let labelEl;
   let startPauseBtn;
   let resetBtn;
-  let progressCircle;
   let modeButtons;
-
-  const PROGRESS_RADIUS = 90;
-  const PROGRESS_CIRCUMFERENCE = 2 * Math.PI * PROGRESS_RADIUS;
 
   const completionSound = new Audio(
     "data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuByPDTgjMGHm7A7+OZSA0PVqzn77BdGAU+ltryxnMoBSh+zPLaizsIGGS57OihUBELTKXh8bllHAU2jdXzzn0vBSV7yvHejj8JE1yw6+6oVBMKRp/g8r5sIQUrgcjw04IzBh5uwO/jmUgND1as5++wXRgFPpba8sZzKAUofczy2os7CBhkuezmn1ASC0yl4fG5ZRwNNo3V8859LwUle8rx3o4/CRNcsOvuqFQTCkaf4PK+bCEFK4HI8NOCMwYebs"
@@ -39,15 +35,10 @@
     return `${m}:${s}`;
   }
 
-  function updateProgressAndPlant() {
+  function updatePlantProgress() {
     const total = DURATIONS[currentMode];
     const elapsed = total - remainingTime;
     const progress = Math.max(0, Math.min(1, elapsed / total));
-
-    if (progressCircle) {
-      const offset = PROGRESS_CIRCUMFERENCE * (1 - progress);
-      progressCircle.style.strokeDashoffset = offset;
-    }
 
     // Tell the plant to grow/shrink:
     if (typeof window.setPlantProgress === "function") {
@@ -91,7 +82,8 @@
       startPauseBtn.disabled = timerCompleted;
     }
 
-    updateProgressAndPlant();
+    // only plant now, no ring
+    updatePlantProgress();
   }
 
   // ========== ESP BUZZER ==========
@@ -198,6 +190,7 @@
     // 👉 tell ESP to update its screen
     sendModeToServer(mode);
   }
+
   // ========== INIT ==========
 
   function initTimer() {
@@ -205,13 +198,7 @@
     labelEl = document.getElementById("label");
     startPauseBtn = document.getElementById("start-pause");
     resetBtn = document.getElementById("reset");
-    progressCircle = document.querySelector(".progress-ring__circle");
     modeButtons = document.querySelectorAll(".mode-btn");
-
-    if (progressCircle) {
-      progressCircle.style.strokeDasharray = `${PROGRESS_CIRCUMFERENCE} ${PROGRESS_CIRCUMFERENCE}`;
-      progressCircle.style.strokeDashoffset = PROGRESS_CIRCUMFERENCE;
-    }
 
     if (startPauseBtn) {
       startPauseBtn.addEventListener("click", () => {

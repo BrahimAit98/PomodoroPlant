@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@{
+    ViewData["Title"] = "Plant Timer";
+}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pomodoro Plant Timer</title>
-</head>
-
-<body>
   <div class="plant-page">
     <main class="plant-main" aria-label="Pomodoro plant timer">
-
           <div class="mode-switch" aria-label="Timer modus">
             <button type="button" class="mode-btn mode-btn--active" data-mode="focus" aria-pressed="true">
               Pomodoro
@@ -26,10 +19,6 @@
 
       <section class="plant-card" aria-live="polite">
         <div class="plant-circle-wrapper" aria-hidden="true">
-          <svg class="progress-ring" viewBox="0 0 220 220">
-            <circle class="progress-ring__track" cx="110" cy="110" r="90" />
-            <circle class="progress-ring__circle" cx="110" cy="110" r="90" />
-          </svg>
           <canvas id="plantCanvas"></canvas>
         </div>
 
@@ -58,5 +47,3 @@
   </div>
 
   <script src="~/js/plant.js" defer></script>
-</body>
-</html>
