@@ -95,14 +95,12 @@
   // ========== ESP BUZZER ==========
 
   function buzzESP() {
-    // 🔁 Change this to your ESP32/ESP8266 IP:
-    const espUrl = "http://192.168.1.42/buzz";
-
-    fetch(espUrl, { method: "GET" })
-      .then(res => res.text())
-      .then(txt => console.log("ESP response:", txt))
-      .catch(err => console.error("Failed to reach ESP:", err));
-  }
+  // 👉 Call your ASP.NET controller, NOT the ESP directly
+  fetch("/Pomodoro/Buzz", { method: "POST" })
+    .then(res => res.text())
+    .then(txt => console.log("Server response:", txt))
+    .catch(err => console.error("Server error:", err));
+}
 
   function notifyCompletion() {
     // Trigger the physical buzzer
