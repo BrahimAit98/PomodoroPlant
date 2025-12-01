@@ -22,26 +22,9 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
-  font-family: "Nohemi med";
-}
-
-.form-floating > .form-control-plaintext::placeholder,
-.form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder,
-.form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
-/* ========== Pomodoro Plant page ========== */
-
-body {
+  margin: 0;
   background-color: #faf5ea;
-  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .plant-page {
@@ -85,165 +68,6 @@ body {
   background-color: #222;
 }
 
-/* Center area with plant + timer */
-.plant-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-}
-
-/* Progress ring + plant */
-.plant-circle-wrapper {
-  position: relative;
-  width: 350px;
-  height: 350px;
-}
-
-/* SVG ring */
-.progress-ring {
-  position: absolute;
-  inset: 0;
-  transform: rotate(-90deg); /* start from top */
-}
-
-.progress-ring__track {
-  fill: none;
-  stroke: #e7eadb;
-  stroke-width: 7;
-}
-
-.progress-ring__circle {
-  fill: none;
-  stroke: #215f3a;
-  stroke-width: 7;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.4s ease;
-}
-
-/* Plant drawing (very simple CSS plant) */
-.plant {
-  --growth: 0; /* 0–1, controlled by JS */
-
-  position: absolute;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%) scale(calc(0.7 + var(--growth) * 0.4));
-  transform-origin: bottom center;
-  width: 120px;
-  height: 160px;
-}
-
-/* Stem */
-.plant-stem {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  width: 6px;
-  height: 70px;
-  background-color: #215f3a;
-  border-radius: 999px;
-  transform: translateX(-50%);
-}
-
-/* Leaves (show more over time) */
-.plant-leaf {
-  position: absolute;
-  width: 40px;
-  height: 22px;
-  border-radius: 40px 40px 40px 40px;
-  background-color: #2e7b4b;
-  opacity: 0;
-  transform-origin: bottom center;
-  transform: scale(0.7);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-/* Individual leaf positions */
-.leaf-1 {
-  bottom: 80px;
-  left: 35%;
-  transform: rotate(-22deg);
-}
-.leaf-2 {
-  bottom: 95px;
-  right: 35%;
-  transform: rotate(22deg);
-}
-.leaf-3 {
-  bottom: 105px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.leaf-4 {
-  bottom: 65px;
-  left: 25%;
-  transform: rotate(-28deg);
-}
-.leaf-5 {
-  bottom: 70px;
-  right: 25%;
-  transform: rotate(28deg);
-}
-
-/* When JS adds this class, leaves "appear" */
-.leaf-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Pot */
-.plant-pot {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  width: 70px;
-  height: 40px;
-  background: #b87133;
-  border-radius: 0 0 16px 16px;
-  transform: translateX(-50%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
-}
-
-.plant-pot::before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  width: 90px;
-  height: 20px;
-  background: #c98442;
-  border-radius: 12px;
-  transform: translateX(-50%);
-}
-
-/* Timer text + button */
-.plant-timer {
-  text-align: center;
-}
-
-.plant-time {
-  font-size: 4rem;
-  font-weight: 700;
-  color: #25523b;
-  letter-spacing: 0.06em;
-  margin-bottom: 4px;
-}
-
-.plant-status {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #647b6a;
-}
-
-.plant-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
 .primary-btn.plant-start {
   padding: 14px 40px;
   border-radius: 999px;
@@ -260,18 +84,109 @@ body {
   box-shadow: 0 6px 16px rgba(23, 86, 50, 0.3);
 }
 
+.plant-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 32px;
+}
+
+.plant-circle-wrapper {
+  position: relative;
+  width: 400px;
+  height: 350px;
+}
+
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.progress-ring__track {
+  fill: none;
+  stroke: #e7eadb;
+  stroke-width: 7;
+}
+
+.progress-ring__circle {
+  fill: none;
+  stroke: #215f3a;
+  stroke-width: 7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+#plantCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.plant-timer {
+  text-align: center;
+}
+
+.plant-time {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #25523b;
+}
+
+.plant-status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #647b6a;
+}
+
+.plant-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.primary-btn {
+  padding: 14px 40px;
+  border-radius: 999px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #215f3a;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.primary-btn:hover {
+  background-color: #2a7449;
+}
+
 .ghost-link {
   background: none;
   border: none;
-  padding: 0;
   font-size: 0.85rem;
   color: #6b7280;
-  cursor: pointer;
   text-decoration: underline;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.ghost-link:hover {
+  color: #4b5563;
 }
 
 @media (max-width: 768px) {
-  .plant-main {
-    justify-content: flex-start;
+  .plant-circle-wrapper {
+    width: 300px;
+    height: 280px;
+  }
+
+  .plant-time {
+    font-size: 3rem;
   }
 }
