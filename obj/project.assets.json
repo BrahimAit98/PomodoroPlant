@@ -3212,11 +3212,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "/Users/iqra/.nuget/packages/": {}
+=======
+    "/Users/brahimait/.nuget/packages/": {}
+>>>>>>> origin/main
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "/Users/iqra/Desktop/Projects/PomodoroPlant/PomodoroPlant.csproj",
       "projectName": "PomodoroPlant",
       "projectPath": "/Users/iqra/Desktop/Projects/PomodoroPlant/PomodoroPlant.csproj",
@@ -3225,11 +3230,22 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/iqra/.nuget/NuGet/NuGet.Config"
+=======
+      "projectUniqueName": "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj",
+      "projectName": "PomodoroPlant",
+      "projectPath": "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj",
+      "packagesPath": "/Users/brahimait/.nuget/packages/",
+      "outputPath": "/Users/brahimait/Projects/PomodoroPlant/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/brahimait/.nuget/NuGet/NuGet.Config"
+>>>>>>> origin/main
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

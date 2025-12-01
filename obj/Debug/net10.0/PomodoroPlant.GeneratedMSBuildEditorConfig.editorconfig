@@ -19,17 +19,26 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = PomodoroPlant
 build_property.RootNamespace = PomodoroPlant
+<<<<<<< HEAD
 build_property.ProjectDir = /Users/iqra/Desktop/Projects/PomodoroPlant/
+=======
+build_property.ProjectDir = /Users/brahimait/Projects/PomodoroPlant/
+>>>>>>> origin/main
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+<<<<<<< HEAD
 build_property.MSBuildProjectDirectory = /Users/iqra/Desktop/Projects/PomodoroPlant
+=======
+build_property.MSBuildProjectDirectory = /Users/brahimait/Projects/PomodoroPlant
+>>>>>>> origin/main
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
+<<<<<<< HEAD
 [/Users/iqra/Desktop/Projects/PomodoroPlant/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -71,5 +80,40 @@ build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/iqra/Desktop/Projects/PomodoroPlant/Views/Shared/_Layout.cshtml]
+=======
+[/Users/brahimait/Projects/PomodoroPlant/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/Pomodoro/Timer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9tb2Rvcm8vVGltZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/brahimait/Projects/PomodoroPlant/Views/Shared/_Layout.cshtml]
+>>>>>>> origin/main
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-lh19mbzv1l

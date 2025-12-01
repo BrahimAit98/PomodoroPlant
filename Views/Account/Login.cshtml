@@ -1,7 +1,21 @@
 @{
-    ViewData["title"] = "Register";
+    ViewData["title"] = "Login";
 }
 
-<div class="text-center">
-    <h1>Register</h1>
+<img src="~/images/PomodoroBladerenBoven.png" alt="Decoratie" class="plant-decor-top"/>
+<img src="~/images/PomodoroBladerenOnder.png" alt="Decoratie" class="plant-decor-bottom">
+
+<div class="login-page-wrapper">
+    <h2 class="login-title">Login</h2>
+    <p class="welcome-text">Welcome back</p>
+
+    <form method="post" class="login-form">
+        <label for="Email">Email</label>
+        <input type="email" id="Email" name="Email" class="login-input" required/>
+
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="Password" class="login-input" required/>
+        
+        <button type="submit" class="login-button">Aanmelden</button>
+    </form>
 </div>

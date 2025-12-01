@@ -729,6 +729,104 @@ button:focus-visible {
   opacity: 0.6;
 }
 
+/* Authenticatie Login */ 
+.login-page-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
+    margin-top: 30px; /* Alleen nodig om onder de header te compenseren */
+    max-width: 470px; 
+    width: 90%;
+    z-index: 10;
+    padding: 30px;
+    text-align: center;
+}
+
+/* CORRECTIE VOOR REGISTER PAGINA: Duwt de langere box naar beneden */
+.register-wrapper {
+    margin-top: 40px; 
+}
+
+.plant-decor-top {
+    position: fixed;
+    top: 55px; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Timer text + button */
+.plant-timer {
+  text-align: center;
+}
+
+.plant-decor-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: 250px;
+    height: auto;
+    z-index: -1;
+    transform: none;
+}
+
+.login-title {
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.welcome-text {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.login-form label {
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    margin-top: 10px;
+    color: #333;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px; 
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4b884c;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #3b6d3c;
+}
+
+
 /* ========== Media Queries ========== */
 @media (max-width: 768px) {
   .plant-card {

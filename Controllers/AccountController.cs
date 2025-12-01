@@ -1,20 +1,22 @@
-using System.Net.Http;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using PomodoroPlant.Models;
 
-namespace PomodoroPlant.Controllers
+namespace PomodoroPlant.Controllers;
+
+public class AccountController : Controller
 {
-    public class AccountController : Controller
+    public IActionResult Index()
     {
+        return View();
+    }
+    public IActionResult Login()
+    {
+        return View();
+    }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
+    public IActionResult Register()
+    {
+        return View();
     }
 }
