@@ -6,251 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pomodoro Plant Timer</title>
   <style>
-    html {
-      font-size: 14px;
-    }
 
-    /* Opgelost: @@media om Razor parsing fout te voorkomen */
-    @@media (min-width: 768px) {
-      html {
-        font-size: 16px;
-      }
-    }
 
-    body {
-      margin: 0;
-      background-color: #faf5ea;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      color: #1f2933;
-    }
-
-    .plant-page {
-      min-height: 100vh;
-      padding: 24px 16px 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .plant-header {
-      max-width: 640px;
-      width: 100%;
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .plant-title {
-      margin: 0 0 8px;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #215f3a;
-    }
-
-    .plant-subtitle {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #6b7280;
-    }
-
-    .plant-main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 24px;
-      max-width: 640px;
-      width: 100%;
-    }
-
-    .plant-card {
-      width: 100%;
-      background: #fdf8ee;
-      border-radius: 24px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
-      padding: 24px 16px 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    /* Responsiever: geen harde hoogte, gebruikt aspect ratio */
-    .plant-circle-wrapper {
-      position: relative;
-      width: min(100%, 380px);
-      aspect-ratio: 19 / 17;
-    }
-
-    .progress-ring {
-      position: absolute;
-      inset: 0;
-      transform: rotate(-90deg);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .progress-ring__track {
-      fill: none;
-      stroke: #e7eadb;
-      stroke-width: 7;
-    }
-
-    .progress-ring__circle {
-      fill: none;
-      stroke: #215f3a;
-      stroke-width: 7;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 0.3s ease-out;
-    }
-
-    #plantCanvas {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-
-    .plant-timer {
-      text-align: center;
-    }
-
-    .plant-time {
-      font-size: 3.4rem;
-      font-weight: 700;
-      color: #25523b;
-      letter-spacing: 0.06em;
-    }
-
-    .plant-status {
-      margin: 4px 0 0;
-      font-size: 0.9rem;
-      color: #647b6a;
-    }
-
-    .mode-switch {
-      display: flex;
-      gap: 8px;
-      margin-top: 4px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .mode-btn {
-      padding: 6px 16px;
-      border-radius: 999px;
-      border: 1px solid #d1d5db;
-      background: #f9fafb;
-      font-size: 0.8rem;
-      cursor: pointer;
-      color: #374151;
-      transition: background-color 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.08s;
-    }
-
-    .mode-btn:hover {
-      background: #eff6ff;
-      border-color: #93c5fd;
-    }
-
-    .mode-btn--active {
-      background: #215f3a;
-      color: #f9fafb;
-      border-color: #215f3a;
-      box-shadow: 0 8px 18px rgba(24, 94, 52, 0.35);
-      transform: translateY(-1px);
-    }
-
-    .plant-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .plant-buttons-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .primary-btn {
-      padding: 12px 28px;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      background-color: #215f3a;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.08s ease-out, box-shadow 0.2s;
-      box-shadow: 0 10px 24px rgba(24, 94, 52, 0.35);
-    }
-
-    .primary-btn:hover {
-      background-color: #2a7449;
-      transform: translateY(-1px);
-    }
-
-    .primary-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 6px 14px rgba(24, 94, 52, 0.3);
-    }
-
-    .primary-btn:disabled {
-      opacity: 0.6;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .ghost-btn {
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid #d1d5db;
-      font-size: 0.85rem;
-      background-color: white;
-      color: #4b5563;
-      cursor: pointer;
-      transition: background-color 0.15s, border-color 0.15s;
-    }
-
-    .ghost-btn:hover {
-      background-color: #f3f4f6;
-      border-color: #9ca3af;
-    }
-
-    .helper-text {
-      font-size: 0.8rem;
-      color: #9ca3af;
-      text-align: center;
-    }
-
-    /* Betere focus styles voor keyboard-navigatie */
-    button:focus-visible {
-      outline: 3px solid #215f3a;
-      outline-offset: 2px;
-    }
-
-    /* --- Media Query afmetingen --- */
-    @@media (max-width: 768px) {
-      .plant-card {
-        padding: 20px 14px 24px;
-      }
-
-      .plant-time {
-        font-size: 2.8rem;
-      }
-    }
   </style>
 </head>
 
 <body>
   <div class="plant-page">
-    <header class="plant-header">
+    <header class="plant-top">
       <h1 class="plant-title">Pomodoro Plant Timer</h1>
       <p class="plant-subtitle">
-        Laat je tomatenplant groeien terwijl jij focust. Elke voltooide pomodoro zorgt voor rijpe tomaten! 🍅
+        start your focus sessions and watch your plant grow!
       </p>
     </header>
 
@@ -291,7 +57,7 @@
             </button>
           </div>
           <p class="helper-text">
-            Tip: laat notificaties toe zodat je een melding krijgt als de tijd om is.
+            Tip: give permission for notifications to get alerted when your session ends.
           </p>
         </div>
       </section>
@@ -735,7 +501,7 @@
       // ========== TIMER LOGIC (Standard) ==========
 
       const DURATIONS = {
-        focus: 0.5 * 60,
+        focus: 0.1 * 60,
         short: 5 * 60,
         long: 15 * 60
       };
@@ -797,16 +563,16 @@
         if (labelEl) {
           if (currentMode === "focus") {
             labelEl.textContent = timerCompleted
-              ? "Pomodoro voltooid! 🍅"
-              : (isRunning ? "Focus sessie bezig..." : "Focus sessie klaar om te starten");
+              ? "Pomodoro finished"
+              : (isRunning ? "Focus session in progress..." : "Focus session ready to start");
           } else if (currentMode === "short") {
-            labelEl.textContent = timerCompleted ? "Korte pauze voltooid" : "Even kort pauze nemen";
+            labelEl.textContent = timerCompleted ? "Short break finished" : "Taking a short break";
           } else {
-            labelEl.textContent = timerCompleted ? "Lange pauze voltooid" : "Neem een langere pauze";
+            labelEl.textContent = timerCompleted ? "Long break finished" : "Taking a longer break";
           }
         }
         if (startPauseBtn) {
-          startPauseBtn.textContent = isRunning ? "Pauzeer" : "Start timer";
+          startPauseBtn.textContent = isRunning ? "Pause" : "Start timer";
           startPauseBtn.disabled = timerCompleted;
         }
         updateProgressAndPlant();

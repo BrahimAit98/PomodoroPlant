@@ -24,14 +24,7 @@ html {
 body {
   margin: 0;
   background-color: #faf5ea;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-.plant-page {
-  min-height: 100vh;
-  padding: 32px 24px 48px;
-  display: flex;
-  flex-direction: column;
+  font-family: "Nohemi med";
 }
 
 .plant-header {
@@ -68,125 +61,216 @@ body {
   background-color: #222;
 }
 
-.primary-btn.plant-start {
-  padding: 14px 40px;
-  border-radius: 999px;
-  border: none;
-  font-size: 1rem;
-  font-weight: 600;
-  background-color: #215f3a;
-  color: #fff;
-  cursor: pointer;
-}
-
-.primary-btn.plant-start:active {
-  transform: translateY(1px);
-  box-shadow: 0 6px 16px rgba(23, 86, 50, 0.3);
-}
-
-.plant-main {
-  flex: 1;
+.plant-page {
+  min-height: 100vh;
+  padding: 24px 16px 40px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 32px;
-}
+      align-items: center;
+    }
 
-.plant-circle-wrapper {
-  position: relative;
-  width: 400px;
-  height: 350px;
-}
+    .plant-top {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 24px;
+    }
 
-.progress-ring {
-  position: absolute;
-  inset: 0;
-  transform: rotate(-90deg);
-  z-index: 2;
-  pointer-events: none;
-}
+    .plant-title {
+      margin: 0 0 8px;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #215f3a;
+    }
 
-.progress-ring__track {
-  fill: none;
-  stroke: #e7eadb;
-  stroke-width: 7;
-}
+    .plant-subtitle {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #6b7280;
+    }
 
-.progress-ring__circle {
-  fill: none;
-  stroke: #215f3a;
-  stroke-width: 7;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 0.4s ease;
-}
+    .plant-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 24px;
+      max-width: 640px;
+      width: 100%;
+    }
 
-#plantCanvas {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
+    .plant-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
 
-.plant-timer {
-  text-align: center;
-}
+    /* Responsiever: geen harde hoogte, gebruikt aspect ratio */
+    .plant-circle-wrapper {
+      position: relative;
+      width: min(100%, 380px);
+      aspect-ratio: 19 / 17;
+    }
 
-.plant-time {
-  font-size: 4rem;
-  font-weight: 700;
-  color: #25523b;
-}
+    .progress-ring {
+      position: absolute;
+      inset: 0;
+      transform: rotate(-90deg);
+      z-index: 2;
+      pointer-events: none;
+    }
 
-.plant-status {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #647b6a;
-}
+    .progress-ring__track {
+      fill: none;
+      stroke: #e7eadb;
+      stroke-width: 7;
+    }
 
-.plant-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
+    .progress-ring__circle {
+      fill: none;
+      stroke: #215f3a;
+      stroke-width: 7;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.3s ease-out;
+    }
 
-.primary-btn {
-  padding: 14px 40px;
-  border-radius: 999px;
-  border: none;
-  font-size: 1rem;
-  font-weight: 600;
-  background-color: #215f3a;
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
+    #plantCanvas {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
 
-.primary-btn:hover {
-  background-color: #2a7449;
-}
+    .plant-timer {
+      text-align: center;
+    }
 
-.ghost-link {
-  background: none;
-  border: none;
-  font-size: 0.85rem;
-  color: #6b7280;
-  text-decoration: underline;
-  cursor: pointer;
-  padding: 8px;
-}
+    .plant-time {
+      font-size: 3.4rem;
+      font-weight: 700;
+      color: #25523b;
+      letter-spacing: 0.06em;
+    }
 
-.ghost-link:hover {
-  color: #4b5563;
-}
+    .plant-status {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: #647b6a;
+    }
 
-@media (max-width: 768px) {
-  .plant-circle-wrapper {
-    width: 300px;
-    height: 280px;
-  }
+    .mode-switch {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-  .plant-time {
-    font-size: 3rem;
-  }
-}
+    .mode-btn {
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: #f9fafb;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: #374151;
+      transition: background-color 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.08s;
+    }
+
+    .mode-btn:hover {
+        background: #cadbd3;
+        border-color: #215f3a;
+        color: black;
+    }
+    .mode-btn--active {
+      background: #215f3a;
+      color: #f9fafb;
+      border-color: #215f3a;
+      transform: translateY(-1px);
+    }
+
+    .plant-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .plant-buttons-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .primary-btn {
+      padding: 12px 28px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background-color: #215f3a;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.08s ease-out, box-shadow 0.2s;
+    }
+
+    .primary-btn:hover {
+      background-color: #2a7449;
+      transform: translateY(-1px);
+    }
+
+    .primary-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 14px rgba(24, 94, 52, 0.3);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .ghost-btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      font-size: 0.85rem;
+      background-color: white;
+      color: #4b5563;
+      cursor: pointer;
+      transition: background-color 0.15s, border-color 0.15s;
+    }
+
+    .ghost-btn:hover {
+      background-color: #f3f4f6;
+      border-color: #9ca3af;
+    }
+
+    .helper-text {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Betere focus styles voor keyboard-navigatie */
+    button:focus-visible {
+      outline: 3px solid #215f3a;
+      outline-offset: 2px;
+    }
+
+    /* --- Media Query afmetingen --- */
+    @@media (max-width: 768px) {
+      .plant-card {
+        padding: 20px 14px 24px;
+      }
+
+      .plant-time {
+        font-size: 2.8rem;
+      }
+    }
