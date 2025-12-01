@@ -39,13 +39,18 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: #215f3a;
+  color: #333333;
   text-decoration: none;
   margin: 0;
 }
 
+.header-title svg {
+  width: 40px;
+  fill: #333333;
+  height: auto;
+}
 .header-right {
   display: flex;
   align-items: center;
@@ -53,16 +58,9 @@ body {
   padding: 5px 16px;
   border-radius: 7px;
   font-size: 0.9rem;
-  background-color: #215f3a;
+  background-color: #333333;
   color: white;
   cursor: pointer;
-}
-
-.header-dot {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #215f3a;
 }
 
 .header-menu {
@@ -77,8 +75,8 @@ body {
 
 .header-menu span {
   display: block;
-  width: .75em;
-  height: .125rem;
+  width: 0.75em;
+  height: 0.125rem;
   border-radius: 999px;
   background-color: #fff;
 }
@@ -91,207 +89,200 @@ body {
   align-items: center;
 }
 
-    .plant-top {
-      max-width: 640px;
-      width: 100%;
-      text-align: center;
-      margin-bottom: 24px;
-    }
+.plant-top {
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 24px;
+}
 
-    .plant-title {
-      margin: 0 0 8px;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #215f3a;
-    }
+.plant-title {
+  margin: 0 0 8px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #215f3a;
+}
 
-    .plant-subtitle {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #6b7280;
-    }
+.plant-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
 
-    .plant-main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 24px;
-      max-width: 640px;
-      width: 100%;
-    }
+.plant-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+  max-width: 640px;
+  width: 100%;
+}
 
-    .plant-card {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
+.plant-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 
-    /* Responsiever: geen harde hoogte, gebruikt aspect ratio */
-    .plant-circle-wrapper {
-      position: relative;
-      width: min(100%, 380px);
-      aspect-ratio: 19 / 17;
-    }
+/* Responsiever: geen harde hoogte, gebruikt aspect ratio */
+.plant-circle-wrapper {
+  position: relative;
+  width: min(100%, 380px);
+  aspect-ratio: 19 / 17;
+}
 
-    .progress-ring {
-      position: absolute;
-      inset: 0;
-      transform: rotate(-90deg);
-      z-index: 2;
-      pointer-events: none;
-    }
+.progress-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  z-index: 2;
+  pointer-events: none;
+}
 
-    .progress-ring__track {
-      fill: none;
-      stroke: #e7eadb;
-      stroke-width: 7;
-    }
+.progress-ring__track {
+  fill: none;
+  stroke: #e7eadb;
+  stroke-width: 7;
+}
 
-    .progress-ring__circle {
-      fill: none;
-      stroke: #215f3a;
-      stroke-width: 7;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 0.3s ease-out;
-    }
+.progress-ring__circle {
+  fill: none;
+  stroke: #215f3a;
+  stroke-width: 7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s ease-out;
+}
 
-    #plantCanvas {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
+#plantCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
 
-    .plant-timer {
-      text-align: center;
-    }
+.plant-timer {
+  text-align: center;
+}
 
-    .plant-time {
-      font-size: 3.4rem;
-      font-weight: 700;
-      color: #25523b;
-      letter-spacing: 0.06em;
-    }
+.plant-time {
+  font-size: 3.4rem;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 0.06em;
+}
 
-    .plant-status {
-      margin: 4px 0 20px 0;
-      font-size: 0.9rem;
-      color: #647b6a;
-    }
+.plant-status {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+  color: #333;
+}
 
-    .mode-switch {
-      display: flex;
-      gap: 8px;
-      margin-top: 4px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+.mode-switch {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    .mode-btn {
-      padding: 6px 16px;
-      border-radius: 999px;
-      border: 1px solid #d1d5db;
-      background: #f9fafb;
-      font-size: 0.8rem;
-      cursor: pointer;
-      color: #374151;
-      transition: background-color 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.08s;
-    }
+.mode-btn {
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s,
+    box-shadow 0.15s, transform 0.08s;
+}
 
-    .mode-btn:hover {
-        background: #cadbd3;
-        border-color: #215f3a;
-        color: black;
-    }
-    .mode-btn--active {
-      background: #215f3a;
-      color: #f9fafb;
-      border-color: #215f3a;
-      transform: translateY(-1px);
-    }
+.mode-btn:hover {
+  background: #cadbd3;
+  border-color: #215f3a;
+  color: black;
+}
+.mode-btn--active {
+  background: #333333;
+  color: #f9fafb;
+  border-color: #333;
+  transform: translateY(-1px);
+}
 
-    .plant-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: 4px;
-    }
+.plant-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
 
-    .primary-btn {
-      padding: 12px 28px;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      background-color: #215f3a;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.08s ease-out, box-shadow 0.2s;
-    }
+.primary-btn {
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.08s ease-out, box-shadow 0.2s;
+}
 
-    .primary-btn:hover {
-      background-color: #2a7449;
-      transform: translateY(-1px);
-    }
+.primary-btn:hover {
+  background-color: #2a7449;
+  transform: translateY(-1px);
+}
 
-    .primary-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 6px 14px rgba(24, 94, 52, 0.3);
-    }
+.primary-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(24, 94, 52, 0.3);
+}
 
-    .primary-btn:disabled {
-      opacity: 0.6;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-    }
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
 
-    .ghost-btn {
-      padding: 12px;
-      border-radius: 999px;
-      border: 1px solid #d1d5db;
-      font-size: 0.85rem;
-      background-color: white;
-      color: #4b5563;
-      cursor: pointer;
+.ghost-btn {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 0.85rem;
+  background-color: white;
+  color: #4b5563;
+  cursor: pointer;
   transition: background-color 0.15s, border-color 0.15s, transform 0.3s ease;
-      margin-left: 8px;
-    }
-
+  margin-left: 8px;
+}
 
 .ghost-btn:active {
   transform: rotate(180deg);
 }
 
-    .ghost-btn:hover {
-      background-color: #f3f4f6;
-      border-color: #9ca3af;
-    }
+.ghost-btn:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
 
-    .helper-text {
-      font-size: 0.7rem;
-      color: #9ca3af;
-      text-align: center;
-      margin-top: 10px;
-    }
+/* Betere focus styles voor keyboard-navigatie */
+button:focus-visible {
+  outline: 3px solid #215f3a;
+  outline-offset: 2px;
+}
 
-    /* Betere focus styles voor keyboard-navigatie */
-    button:focus-visible {
-      outline: 3px solid #215f3a;
-      outline-offset: 2px;
-    }
+/* --- Media Query afmetingen --- */
+@@media (max-width: 768px) {
+  .plant-card {
+    padding: 20px 14px 24px;
+  }
 
-    /* --- Media Query afmetingen --- */
-    @@media (max-width: 768px) {
-      .plant-card {
-        padding: 20px 14px 24px;
-      }
-
-      .plant-time {
-        font-size: 2.8rem;
-      }
-    }
+  .plant-time {
+    font-size: 2.8rem;
+  }
+}

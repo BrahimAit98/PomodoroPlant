@@ -10,6 +10,20 @@
 <body>
   <div class="plant-page">
     <main class="plant-main" aria-label="Pomodoro plant timer">
+
+          <div class="mode-switch" aria-label="Timer modus">
+            <button type="button" class="mode-btn mode-btn--active" data-mode="focus" aria-pressed="true">
+              Pomodoro
+            </button>
+            <button type="button" class="mode-btn" data-mode="short" aria-pressed="false">
+              Short break
+            </button>
+            <button type="button" class="mode-btn" data-mode="long" aria-pressed="false">
+              Long break
+            </button>
+          </div>
+
+
       <section class="plant-card" aria-live="polite">
         <div class="plant-circle-wrapper" aria-hidden="true">
           <svg class="progress-ring" viewBox="0 0 220 220">
@@ -23,17 +37,7 @@
           <div class="plant-time" id="timer" aria-label="Timer">25:00</div>
           <p class="plant-status" id="label">Focus sessie klaar om te starten</p>
 
-          <div class="mode-switch" aria-label="Timer modus">
-            <button type="button" class="mode-btn mode-btn--active" data-mode="focus" aria-pressed="true">
-              Focus · 25 min
-            </button>
-            <button type="button" class="mode-btn" data-mode="short" aria-pressed="false">
-              Korte pauze · 5 min
-            </button>
-            <button type="button" class="mode-btn" data-mode="long" aria-pressed="false">
-              Lange pauze · 15 min
-            </button>
-          </div>
+    
         </section>
 
         <div class="plant-actions">
@@ -48,9 +52,6 @@
 
             </button>
           </div>
-          <p class="helper-text">
-            Tip: give permission for notifications to get alerted when your session ends.
-          </p>
         </div>
       </section>
     </main>
