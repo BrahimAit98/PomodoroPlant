@@ -5,7 +5,7 @@
   // ========== TIMER CONFIG ==========
 
   const DURATIONS = {
-    focus: 25 * 60,
+    focus: 0.1 * 60,
     short: 5 * 60,
     long: 15 * 60,
   };
@@ -105,7 +105,25 @@
       .catch((err) => console.error("Mode update error:", err));
   }
 
+  function logSessionToServer() {
+    const total = DURATIONS[currentMode]; // full duration of the mode
+
+    fetch("/Analytics/TrackSession", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        mode: currentMode,
+        durationSeconds: total,
+      }),
+    }).catch((err) => console.error("TrackSession error:", err));
+  }
+
   function notifyCompletion() {
+    // log to your backend
+    logSessionToServer();
+
     // Trigger the physical buzzer
     buzzESP();
 

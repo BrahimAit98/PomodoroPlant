@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "/Users/iqra/Desktop/Projects/PomodoroPlant/PomodoroPlant.csproj": {}
   },
   "projects": {
@@ -16,28 +15,11 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/iqra/.nuget/NuGet/NuGet.Config"
-=======
-    "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj": {}
-  },
-  "projects": {
-    "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj",
-        "projectName": "PomodoroPlant",
-        "projectPath": "/Users/brahimait/Projects/PomodoroPlant/PomodoroPlant.csproj",
-        "packagesPath": "/Users/brahimait/.nuget/packages/",
-        "outputPath": "/Users/brahimait/Projects/PomodoroPlant/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/Users/brahimait/.nuget/NuGet/NuGet.Config"
->>>>>>> origin/main
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -62,6 +44,10 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",

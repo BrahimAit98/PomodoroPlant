@@ -51,6 +51,11 @@ namespace PomodoroPlant.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View();
         }
     }

@@ -52,10 +52,15 @@ a {
   width: 40px;
   fill: #333333;
   height: auto;
+  margin-top: -5px;
 }
 
 .header-right:hover svg {
   fill: #cadbd3;
+}
+
+.header-menu-wrapper {
+  position: relative;
 }
 
 .header-right {
@@ -68,6 +73,64 @@ a {
   background-color: #333333;
   color: white;
   cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+.header-right:hover {
+  background-color: #215f3a;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: #333333;
+  border-radius: 8px;
+  min-width: 180px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.15s;
+  border: none;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background-color: #cadbd3;
+  color: #333;
+}
+.dropdown-item:hover svg {
+  stroke: #333;
+}
+
+.dropdown-item span {
+  font-size: 1.1rem;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 4px 0;
 }
 
 .header-menu {
@@ -625,7 +688,7 @@ button:focus-visible {
 }
 
 .analytics-bar-tooltip::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 100%;
   left: 50%;
@@ -729,30 +792,28 @@ button:focus-visible {
   opacity: 0.6;
 }
 
-/* Authenticatie Login */ 
-.login-page-wrapper {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); 
-    margin-top: 30px; /* Alleen nodig om onder de header te compenseren */
-    max-width: 470px; 
-    width: 90%;
-    z-index: 10;
-    padding: 30px;
-    text-align: center;
+/* Authenticatie Login */
+.auth .header-title {
+  font-size: 2rem;
+  justify-content: center;
 }
-
-/* CORRECTIE VOOR REGISTER PAGINA: Duwt de langere box naar beneden */
-.register-wrapper {
-    margin-top: 40px; 
+.login-page-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 470px;
+  width: 90%;
+  z-index: 10;
+  padding: 30px;
+  text-align: center;
 }
 
 .plant-decor-top {
-    position: fixed;
-    top: 55px; 
-    left: 50%;
-    transform: translateX(-50%);
+  position: fixed;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Timer text + button */
@@ -761,71 +822,92 @@ button:focus-visible {
 }
 
 .plant-decor-bottom {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: auto;
-    width: 250px;
-    height: auto;
-    z-index: -1;
-    transform: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: auto;
+  width: 250px;
+  height: auto;
+  z-index: -1;
+  transform: none;
 }
 
 .login-title {
-    font-size: 2.5em;
-    margin-bottom: 5px;
-    color: #333;
+  font-size: 2.5em;
+  margin-bottom: 5px;
+  color: #333;
 }
 
 .welcome-text {
-    font-size: 1.1em;
-    color: #666;
-    margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #666;
+  margin: 10px 0;
+  font-family: arial, helvetica, sans-serif;
+}
+
+.register-link-text {
+  font-size: 0.9rem;
+  color: #333;
+  margin-top: 15px;
+}
+.register-link-text .register-link {
+  color: #215f3a;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .login-form label {
-    width: 100%;
-    text-align: left;
-    font-weight: 600;
-    margin-top: 10px;
-    color: #333;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  margin-top: 10px;
+  color: #333;
+  font-size: 0.9rem;
 }
 
 .login-input {
-    width: 100%;
-    padding: 10px; 
-    border: 1px solid #d4d4d4;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 16px;
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #e6e7e1;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 0.9rem;
+}
+
+.login-input:focus {
+  border-color: #215f3a;
+  outline: none;
+  box-shadow: 0 0 0 0.2rem #cadbd3;
 }
 
 .login-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #4b884c;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  background-color: #215f3a;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
 
 .login-button:hover {
-    background-color: #3b6d3c;
+  background-color: #3b6d3c;
 }
-
 
 /* ========== Media Queries ========== */
 @media (max-width: 768px) {
@@ -880,7 +962,7 @@ button:focus-visible {
   .analytics-bar-label {
     font-size: 0.65rem;
   }
-  
+
   .analytics-bar-tooltip {
     font-size: 0.7rem;
     padding: 4px 8px;
