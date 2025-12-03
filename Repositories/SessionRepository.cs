@@ -131,6 +131,9 @@ namespace PomodoroPlant.Repositories
 
             FillChartData(stats, focusSessions);
 
+            stats.PlantsUnlocked = stats.TotalFocusHours > 0 ? 1 : 0;
+            // stats.Achievements = BuildAchievements(stats);
+
             return stats;
         }
 
@@ -213,7 +216,6 @@ namespace PomodoroPlant.Repositories
 
                 var hours = totalSeconds / 3600.0;
 
-                // 👇 cast DayOfWeek to int first, THEN shift and modulo
                 int dayIndex = (((int)d.DayOfWeek + 6) % 7); // Monday -> 0, ..., Sunday -> 6
                 var label = dayNames[dayIndex];
 

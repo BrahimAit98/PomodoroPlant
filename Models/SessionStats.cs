@@ -24,6 +24,7 @@ namespace PomodoroPlant.Models
         public int DayStreak { get; set; }
         public double AverageSessionMinutes { get; set; }
 
+        // Plants
         public int PlantsUnlocked { get; set; }
 
         // Chart data
@@ -31,7 +32,7 @@ namespace PomodoroPlant.Models
         public List<ChartPoint> LastWeek { get; set; } = new();
         public List<ChartPoint> ThisMonth { get; set; } = new();
 
-        // 👇 THIS is what your view is complaining about
+        // Achievements
         public List<Achievement> Achievements { get; set; } = new();
     }
 }

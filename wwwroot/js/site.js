@@ -90,21 +90,28 @@
 
   function buzzESP() {
     // 👉 Call your ASP.NET controller, NOT the ESP directly
-    fetch("/Pomodoro/Buzz", { method: "POST" })
+    fetch("/Buzz", { method: "POST" })
       .then((res) => res.text())
       .then((txt) => console.log("Server response:", txt))
       .catch((err) => console.error("Server error:", err));
   }
 
   function sendModeToServer(mode) {
-    fetch(`/Pomodoro/UpdateMode?mode=${encodeURIComponent(mode)}`, {
-      method: "POST",
-    })
+    // full duration of that mode (focus/short/long)
+    const seconds = Math.round(DURATIONS[mode]);
+
+    fetch(
+      `/Pomodoro/UpdateMode?mode=${encodeURIComponent(
+        mode
+      )}&seconds=${encodeURIComponent(seconds)}`,
+      {
+        method: "POST",
+      }
+    )
       .then((res) => res.text())
       .then((txt) => console.log("Mode update response:", txt))
       .catch((err) => console.error("Mode update error:", err));
   }
-
   function logSessionToServer() {
     const total = DURATIONS[currentMode]; // full duration of the mode
 
