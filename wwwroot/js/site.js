@@ -5,7 +5,7 @@
   // ========== TIMER CONFIG ==========
 
   const DURATIONS = {
-    focus: 25 * 60,
+    focus: 0.1 * 60,
     short: 5 * 60,
     long: 15 * 60,
   };
@@ -98,28 +98,38 @@
   }
 
   function sendModeToServer(mode) {
-    // full duration of that mode (focus/short/long)
     const seconds = Math.round(DURATIONS[mode]);
+    const csrfToken = document.querySelector(
+      'input[name="__RequestVerificationToken"]'
+    )?.value;
 
-    fetch(
-      `/Pomodoro/UpdateMode?mode=${encodeURIComponent(
-        mode
-      )}&seconds=${encodeURIComponent(seconds)}`,
-      {
-        method: "POST",
-      }
-    )
+    fetch("/Pomodoro/UpdateMode", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        RequestVerificationToken: csrfToken,
+      },
+      body: JSON.stringify({
+        mode: mode,
+        seconds: seconds,
+      }),
+    })
       .then((res) => res.text())
       .then((txt) => console.log("Mode update response:", txt))
       .catch((err) => console.error("Mode update error:", err));
   }
+
   function logSessionToServer() {
-    const total = DURATIONS[currentMode]; // full duration of the mode
+    const total = DURATIONS[currentMode];
+    const csrfToken = document.querySelector(
+      'input[name="__RequestVerificationToken"]'
+    )?.value;
 
     fetch("/Analytics/TrackSession", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        RequestVerificationToken: csrfToken,
       },
       body: JSON.stringify({
         mode: currentMode,
@@ -213,7 +223,7 @@
     updateModeButtonAria();
     updateDisplay();
 
-    // 👉 tell ESP to update its screen
+    // tell ESP to update its screen
     sendModeToServer(mode);
   }
 
@@ -247,7 +257,7 @@
     updateModeButtonAria();
     updateDisplay();
 
-    // 👉 NEW: tell ESP initial mode (focus) when page loads
+    // tell ESP initial mode (focus) when page loads
     sendModeToServer(currentMode);
   }
 

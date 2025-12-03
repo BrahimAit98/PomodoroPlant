@@ -7,19 +7,43 @@ namespace PomodoroPlant.Controllers
 {
     public class PomodoroController : Controller
     {
-        private const string EspBaseUrl = "http://10.110.206.211";
+        private readonly string EspBaseUrl;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        // POST /Pomodoro/UpdateMode
-        [HttpPost]
-        public async Task<IActionResult> UpdateMode(string mode, int seconds)
+        public PomodoroController(
+            IConfiguration configuration,
+            IHttpClientFactory httpClientFactory
+        )
         {
-            if (string.IsNullOrWhiteSpace(mode))
-                return BadRequest("Mode is required");
+            EspBaseUrl = configuration["EspSettings:BaseUrl"] ?? "http://10.110.206.211";
+            _httpClientFactory = httpClientFactory;
+        }
 
-            using var http = new HttpClient();
-            var encodedMode = WebUtility.UrlEncode(mode);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateMode([FromBody] ModeRequest request)
+        {
+            // Check if user is authenticated
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                return Unauthorized("User not authenticated");
+            }
 
-            var espUrl = $"{EspBaseUrl}/mode?name={encodedMode}&seconds={seconds}";
+            // Validate mode
+            var validModes = new[] { "focus", "short", "long" };
+            if (
+                string.IsNullOrWhiteSpace(request.Mode)
+                || !validModes.Contains(request.Mode.ToLower())
+            )
+                return BadRequest("Invalid mode");
+
+            // Validate seconds (reasonable limits)
+            if (request.Seconds < 0 || request.Seconds > 3600)
+                return BadRequest("Invalid duration");
+
+            var http = _httpClientFactory.CreateClient();
+            var encodedMode = WebUtility.UrlEncode(request.Mode);
+            var espUrl = $"{EspBaseUrl}/mode?name={encodedMode}&seconds={request.Seconds}";
 
             try
             {
@@ -27,27 +51,40 @@ namespace PomodoroPlant.Controllers
                 var content = await response.Content.ReadAsStringAsync();
                 return Ok(content);
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the exception (add ILogger if needed)
                 return StatusCode(500, "ESP not reachable");
             }
+        }
+
+        public class ModeRequest
+        {
+            public string Mode { get; set; } = string.Empty;
+            public int Seconds { get; set; }
         }
 
         [HttpGet]
         public async Task<IActionResult> Buzz()
         {
-            using var http = new HttpClient();
+            // Check if user is authenticated
+            if (HttpContext.Session.GetInt32("UserId") == null)
+            {
+                return Unauthorized("User not authenticated");
+            }
+
+            var http = _httpClientFactory.CreateClient();
             var espUrl = $"{EspBaseUrl}/buzz";
 
             try
             {
                 var response = await http.GetAsync(espUrl);
                 var content = await response.Content.ReadAsStringAsync();
-                // Optionally forward status code so you see 404 if it ever comes from ESP
                 return StatusCode((int)response.StatusCode, content);
             }
-            catch
+            catch (Exception ex)
             {
+                // Log the exception (add ILogger if needed)
                 return StatusCode(500, "ESP not reachable");
             }
         }

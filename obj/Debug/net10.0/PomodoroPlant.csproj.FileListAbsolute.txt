@@ -270,4 +270,4 @@
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/PomodoroPlant.genruntimeconfig.cache
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/ref/PomodoroPlant.dll
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/so0kzm6yjb-{0}-zodybnu77z-zodybnu77z.gz
-/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/yg87q262sl-{0}-06lr10a90s-06lr10a90s.gz
+/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/yg87q262sl-{0}-kq04fc6kk0-kq04fc6kk0.gz
