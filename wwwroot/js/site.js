@@ -5,7 +5,7 @@
   // ========== TIMER CONFIG ==========
 
   const DURATIONS = {
-    focus: 0.1 * 60,
+    focus: 25 * 60,
     short: 5 * 60,
     long: 15 * 60,
   };
@@ -89,8 +89,9 @@
   // ========== ESP BUZZER ==========
 
   function buzzESP() {
-    // 👉 Call your ASP.NET controller, NOT the ESP directly
-    fetch("/Buzz", { method: "POST" })
+    fetch("/Pomodoro/Buzz", {
+      method: "GET",
+    })
       .then((res) => res.text())
       .then((txt) => console.log("Server response:", txt))
       .catch((err) => console.error("Server error:", err));

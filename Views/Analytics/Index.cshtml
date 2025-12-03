@@ -19,8 +19,41 @@
             stroke="currentColor" class="analytics-icon">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
           </svg>
-          <h2 class="analytics-value">@Model.TotalFocusHours.ToString("0.0")</h2>
-          <h3 class="analytics-title">Hours Focused</h3>
+          @{
+            var totalMinutes = (int)Math.Round(Model.TotalFocusHours * 60);
+            string displayValue;
+            string displayUnit;
+
+            if (totalMinutes == 0)
+            {
+              displayValue = "0";
+              displayUnit = "Minutes";
+            }
+            else if (totalMinutes < 60)
+            {
+              displayValue = totalMinutes.ToString();
+              displayUnit = totalMinutes == 1 ? "Minute" : "Minutes";
+            }
+            else if (totalMinutes < 120)
+            {
+              var h = totalMinutes / 60;
+              var m = totalMinutes % 60;
+              displayValue = m == 0 ? h.ToString() : $"{h}h {m}m";
+              displayUnit = m == 0 ? "Hour" : "Total Time";
+            }
+            else if (Model.TotalFocusHours < 10)
+            {
+              displayValue = Model.TotalFocusHours.ToString("0.0", System.Globalization.CultureInfo.InvariantCulture);
+              displayUnit = "Hours";
+            }
+            else
+            {
+              displayValue = Math.Round(Model.TotalFocusHours).ToString();
+              displayUnit = "Hours";
+            }
+          }
+          <h2 class="analytics-value">@displayValue</h2>
+          <h3 class="analytics-title">@displayUnit</h3>
         </div>
 
         <!-- Active Days -->
@@ -31,7 +64,7 @@
               d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
           </svg>
           <h2 class="analytics-value">@Model.ActiveDays</h2>
-          <h3 class="analytics-title">Days Active</h3>
+          <h3 class="analytics-title">@(Model.ActiveDays == 1 ? "Day" : "Days") Active</h3>
         </div>
 
         <!-- Day Streak -->
@@ -43,8 +76,8 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
           </svg>
-          <h2 class="analytics-value">@Model.DayStreak</h2>
-          <h3 class="analytics-title">Day Streak</h3>
+          <h2 class="analytics-value">@Model.DayStreak 🔥</h2>
+          <h3 class="analytics-title">@(Model.DayStreak == 1 ? "Day" : "Days") Streak</h3>
         </div>
       </div>
 
@@ -56,18 +89,44 @@
         </div>
         <div class="analytics-stat-item">
           <span class="analytics-stat-label">Plants Unlocked</span>
-          <span class="analytics-stat-value">@Model.PlantsUnlocked</span>
+          <span class="analytics-stat-value">@Model.PlantsUnlocked 🌿</span>
         </div>
         <div class="analytics-stat-item">
           <span class="analytics-stat-label">Average Session</span>
-          <span class="analytics-stat-value">@Model.AverageSessionMinutes.ToString("0.0") min</span>
+          <span class="analytics-stat-value">
+            @{
+              var avgMinutes = (int)Math.Round(Model.AverageSessionMinutes);
+              if (avgMinutes == 0)
+              {
+                <text>0 min</text>
+              }
+              else if (avgMinutes < 60)
+              {
+                @avgMinutes <text> min</text>
+              }
+              else
+              {
+                var avgHours = avgMinutes / 60;
+                var avgMins = avgMinutes % 60;
+                if (avgMins == 0)
+                {
+                  @avgHours <text> </text>
+                  @(avgHours == 1 ? "hr" : "hrs")
+                }
+                else
+                {
+                  <text>@(avgHours)h @(avgMins)m</text>
+                }
+              }
+            }
+          </span>
         </div>
       </div>
 
       <!-- Weekly Activity Chart (dynamic from model) -->
       <div class="analytics-container">
         <div class="analytics-top-bar">
-          <h2 class="analytics-section-title">Focused Hours</h2>
+          <h2 class="analytics-section-title">Focus Activity</h2>
           <div class="analytics-timeframe-selector">
             <button class="analytics-timeframe-button analytics-timeframe-button--active">This Week</button>
             <button class="analytics-timeframe-button">Last Week</button>
@@ -119,13 +178,13 @@
           </div>
         </div>
         <div class="analytics-chart-legend">
-          <span class="analytics-legend-label">Hours per day / week</span>
+          <span class="analytics-legend-label" id="chart-legend-text">Time per day</span>
         </div>
       </div>
 
       <!-- Recent Achievements (dynamic) -->
       <div class="analytics-achievements">
-        <h2 class="analytics-section-title">Recent Milestones</h2>
+        <h2 class="analytics-section-title">Recent Milestones 🏆</h2>
 
         @if (Model.Achievements != null && Model.Achievements.Count > 0)
         {
@@ -134,7 +193,6 @@
             {
               <div class="achievement-item">
                 <div class="achievement-icon">
-                  <!-- simple generic icon -->
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24"
                     stroke-width="1.5" stroke="#fff">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -155,7 +213,7 @@
         else
         {
           <p class="plant-status text-start text-white pb-4">
-            Complete some focus sessions to unlock your first achievements 🌱
+            Complete focus sessions to unlock your first achievements! 🌱
           </p>
         }
       </div>
@@ -165,7 +223,6 @@
 </div>
 
 @{
-  // Serialize chart data into JS
   var thisWeekJson = System.Text.Json.JsonSerializer.Serialize(Model.ThisWeek);
   var lastWeekJson = System.Text.Json.JsonSerializer.Serialize(Model.LastWeek);
   var thisMonthJson = System.Text.Json.JsonSerializer.Serialize(Model.ThisMonth);
@@ -192,15 +249,44 @@
       });
     });
 
-    // Initial chart: This Week
     updateChart("This Week", barGroups);
   });
 
+  function formatTime(hours) {
+    if (hours === 0) return '0 min';
+
+    const totalMinutes = Math.round(hours * 60);
+
+    if (totalMinutes === 0) {
+      return '0 min';
+    }
+
+    if (totalMinutes < 60) {
+      return totalMinutes + ' min';
+    }
+
+    const h = Math.floor(totalMinutes / 60);
+    const m = totalMinutes % 60;
+
+    if (m === 0) {
+      return h === 1 ? '1 hr' : h + ' hrs';
+    }
+
+    return h + 'h ' + m + 'm';
+  }
+
   function updateChart(timeframe, barGroups) {
     const data = analyticsData[timeframe] || [];
+    const legendText = document.getElementById('chart-legend-text');
+
     if (data.length === 0) {
       barGroups.forEach(g => g.style.display = 'none');
+      if (legendText) legendText.textContent = 'No activity yet';
       return;
+    }
+
+    if (legendText) {
+      legendText.textContent = timeframe === "This Month" ? 'Time per week' : 'Time per day';
     }
 
     const maxHours = Math.max(...data.map(d => d.Hours || 0)) || 1;
@@ -218,9 +304,9 @@
       const item = data[index];
       group.style.display = 'flex';
 
-      const heightPercent = (item.Hours / maxHours) * 100;
+      const heightPercent = Math.max((item.Hours / maxHours) * 100, 2);
       bar.style.height = heightPercent + '%';
-      tooltip.textContent = (item.Hours || 0).toFixed(1) + ' hrs';
+      tooltip.textContent = formatTime(item.Hours || 0);
       label.textContent = item.Label;
     });
   }

@@ -33,6 +33,25 @@ namespace PomodoroPlant.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Buzz()
+        {
+            using var http = new HttpClient();
+            var espUrl = $"{EspBaseUrl}/buzz";
+
+            try
+            {
+                var response = await http.GetAsync(espUrl);
+                var content = await response.Content.ReadAsStringAsync();
+                // Optionally forward status code so you see 404 if it ever comes from ESP
+                return StatusCode((int)response.StatusCode, content);
+            }
+            catch
+            {
+                return StatusCode(500, "ESP not reachable");
+            }
+        }
+
         public IActionResult Index()
         {
             if (HttpContext.Session.GetInt32("UserId") == null)

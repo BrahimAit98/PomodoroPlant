@@ -79,7 +79,6 @@ a {
 .header-right:hover {
   background-color: #215f3a;
 }
-
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
@@ -92,7 +91,7 @@ a {
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.2s ease;
-  z-index: 1000;
+  z-index: 10000;
   overflow: hidden;
 }
 
