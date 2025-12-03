@@ -76,7 +76,7 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
           </svg>
-          <h2 class="analytics-value">@Model.DayStreak 🔥</h2>
+          <h2 class="analytics-value">@Model.DayStreak</h2>
           <h3 class="analytics-title">@(Model.DayStreak == 1 ? "Day" : "Days") Streak</h3>
         </div>
       </div>
@@ -89,134 +89,144 @@
         </div>
         <div class="analytics-stat-item">
           <span class="analytics-stat-label">Plants Unlocked</span>
-          <span class="analytics-stat-value">@Model.PlantsUnlocked 🌿</span>
+          <span class="analytics-stat-value">@Model.PlantsUnlocked</span>
         </div>
         <div class="analytics-stat-item">
           <span class="analytics-stat-label">Average Session</span>
           <span class="analytics-stat-value">
             @{
-              var avgMinutes = (int)Math.Round(Model.AverageSessionMinutes);
-              if (avgMinutes == 0)
+              var avg = Model.AverageSessionMinutes; // this should be in MINUTES
+              if (avg <= 0)
               {
-                <text>0 min</text>
+                @:0 min
               }
-              else if (avgMinutes < 60)
+              else if (avg < 1)
               {
-                @avgMinutes <text> min</text>
+                // show seconds if average is less than a minute
+                var seconds = (int)Math.Round(avg * 60);
+                if (seconds == 0) seconds = 1; // avoid showing 0 sec for tiny non-zero values
+                                               @seconds <text> sec</text>
+              }
+              else if (avg < 60)
+              {
+                var avgRounded = (int)Math.Round(avg);
+                @avgRounded <text> min</text>
               }
               else
               {
-                var avgHours = avgMinutes / 60;
-                var avgMins = avgMinutes % 60;
-                if (avgMins == 0)
+                var totalMinutes = (int)Math.Round(avg);
+                var h = totalMinutes / 60;
+                var m = totalMinutes % 60;
+
+                if (m == 0)
                 {
-                  @avgHours <text> </text>
-                  @(avgHours == 1 ? "hr" : "hrs")
+                  @h <text> hrs</text>
                 }
                 else
                 {
-                  <text>@(avgHours)h @(avgMins)m</text>
+                  @h <text>h </text>
+                  @m <text>m</text>
                 }
               }
             }
           </span>
         </div>
-      </div>
 
-      <!-- Weekly Activity Chart (dynamic from model) -->
-      <div class="analytics-container">
-        <div class="analytics-top-bar">
-          <h2 class="analytics-section-title">Focus Activity</h2>
-          <div class="analytics-timeframe-selector">
-            <button class="analytics-timeframe-button analytics-timeframe-button--active">This Week</button>
-            <button class="analytics-timeframe-button">Last Week</button>
-            <button class="analytics-timeframe-button">This Month</button>
-          </div>
-        </div>
-        <div class="analytics-chart">
-          <div class="analytics-bar-group">
-            <div class="analytics-bar">
-              <span class="analytics-bar-tooltip"></span>
+        <!-- Weekly Activity Chart (dynamic from model) -->
+        <div class="analytics-container">
+          <div class="analytics-top-bar">
+            <h2 class="analytics-section-title">Focus Activity</h2>
+            <div class="analytics-timeframe-selector">
+              <button class="analytics-timeframe-button analytics-timeframe-button--active">This Week</button>
+              <button class="analytics-timeframe-button">Last Week</button>
+              <button class="analytics-timeframe-button">This Month</button>
             </div>
-            <span class="analytics-bar-label"></span>
           </div>
-          <div class="analytics-bar-group">
-            <div class="analytics-bar">
-              <span class="analytics-bar-tooltip"></span>
-            </div>
-            <span class="analytics-bar-label"></span>
-          </div>
-          <div class="analytics-bar-group">
-            <div class="analytics-bar">
-              <span class="analytics-bar-tooltip"></span>
-            </div>
-            <span class="analytics-bar-label"></span>
-          </div>
-          <div class="analytics-bar-group">
-            <div class="analytics-bar">
-              <span class="analytics-bar-tooltip"></span>
-            </div>
-            <span class="analytics-bar-label"></span>
-          </div>
-          <div class="analytics-bar-group">
-            <div class="analytics-bar">
-              <span class="analytics-bar-tooltip"></span>
-            </div>
-            <span class="analytics-bar-label"></span>
-          </div>
-          <div class="analytics-bar-group">
-            <div class="analytics-bar">
-              <span class="analytics-bar-tooltip"></span>
-            </div>
-            <span class="analytics-bar-label"></span>
-          </div>
-          <div class="analytics-bar-group">
-            <div class="analytics-bar">
-              <span class="analytics-bar-tooltip"></span>
-            </div>
-            <span class="analytics-bar-label"></span>
-          </div>
-        </div>
-        <div class="analytics-chart-legend">
-          <span class="analytics-legend-label" id="chart-legend-text">Time per day</span>
-        </div>
-      </div>
-
-      <!-- Recent Achievements (dynamic) -->
-      <div class="analytics-achievements">
-        <h2 class="analytics-section-title">Recent Milestones 🏆</h2>
-
-        @if (Model.Achievements != null && Model.Achievements.Count > 0)
-        {
-          <div class="achievement-list">
-            @foreach (var achievement in Model.Achievements)
-            {
-              <div class="achievement-item">
-                <div class="achievement-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24"
-                    stroke-width="1.5" stroke="#fff">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div class="achievement-content">
-                  <h4 class="achievement-title">@achievement.Title</h4>
-                  <p class="achievement-date">@achievement.WhenText</p>
-                  @if (!string.IsNullOrWhiteSpace(achievement.Description))
-                  {
-                    <p class="achievement-description">@achievement.Description</p>
-                  }
-                </div>
+          <div class="analytics-chart">
+            <div class="analytics-bar-group">
+              <div class="analytics-bar">
+                <span class="analytics-bar-tooltip"></span>
               </div>
-            }
+              <span class="analytics-bar-label"></span>
+            </div>
+            <div class="analytics-bar-group">
+              <div class="analytics-bar">
+                <span class="analytics-bar-tooltip"></span>
+              </div>
+              <span class="analytics-bar-label"></span>
+            </div>
+            <div class="analytics-bar-group">
+              <div class="analytics-bar">
+                <span class="analytics-bar-tooltip"></span>
+              </div>
+              <span class="analytics-bar-label"></span>
+            </div>
+            <div class="analytics-bar-group">
+              <div class="analytics-bar">
+                <span class="analytics-bar-tooltip"></span>
+              </div>
+              <span class="analytics-bar-label"></span>
+            </div>
+            <div class="analytics-bar-group">
+              <div class="analytics-bar">
+                <span class="analytics-bar-tooltip"></span>
+              </div>
+              <span class="analytics-bar-label"></span>
+            </div>
+            <div class="analytics-bar-group">
+              <div class="analytics-bar">
+                <span class="analytics-bar-tooltip"></span>
+              </div>
+              <span class="analytics-bar-label"></span>
+            </div>
+            <div class="analytics-bar-group">
+              <div class="analytics-bar">
+                <span class="analytics-bar-tooltip"></span>
+              </div>
+              <span class="analytics-bar-label"></span>
+            </div>
           </div>
-        }
-        else
-        {
-          <p class="plant-status text-start text-white pb-4">
-            Complete focus sessions to unlock your first achievements! 🌱
-          </p>
-        }
-      </div>
+          <div class="analytics-chart-legend">
+            <span class="analytics-legend-label" id="chart-legend-text">Time per day</span>
+          </div>
+        </div>
+
+        <!-- Recent Achievements (dynamic) -->
+        <div class="analytics-achievements">
+          <h2 class="analytics-section-title">Recent Milestones</h2>
+
+          @if (Model.Achievements != null && Model.Achievements.Count > 0)
+          {
+            <div class="achievement-list">
+              @foreach (var achievement in Model.Achievements)
+              {
+                <div class="achievement-item">
+                  <div class="achievement-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24"
+                      stroke-width="1.5" stroke="#fff">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 6v6l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div class="achievement-content">
+                    <h4 class="achievement-title">@achievement.Title</h4>
+                    <p class="achievement-date">@achievement.WhenText</p>
+                    @if (!string.IsNullOrWhiteSpace(achievement.Description))
+                    {
+                      <p class="achievement-description">@achievement.Description</p>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          else
+          {
+            <p class="plant-status text-start text-white pb-4">
+              Complete focus sessions to unlock your first achievements!
+            </p>
+          }
+        </div>
 
     </section>
   </main>
