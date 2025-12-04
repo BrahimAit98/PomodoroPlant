@@ -195,7 +195,6 @@
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/scopedcss/bundle/PomodoroPlant.styles.css
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/scopedcss/projectbundle/PomodoroPlant.bundle.scp.css
-/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/so0kzm6yjb-{0}-zodybnu77z-zodybnu77z.gz
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/njj4vs7d66-{0}-61n19gt1b8-61n19gt1b8.gz
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/vrmii62vrz-{0}-ckh7fd4ku3-ckh7fd4ku3.gz
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/yg87q262sl-{0}-ejvvhyimkg-ejvvhyimkg.gz
@@ -271,3 +270,4 @@
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/PomodoroPlant.pdb
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/PomodoroPlant.genruntimeconfig.cache
 /Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/ref/PomodoroPlant.dll
+/Users/iqra/Desktop/Projects/PomodoroPlant/obj/Debug/net10.0/compressed/so0kzm6yjb-{0}-fbbu5vbx96-fbbu5vbx96.gz

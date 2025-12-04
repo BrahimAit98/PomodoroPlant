@@ -9,32 +9,7 @@ namespace PomodoroPlant.Repositories
 {
     public class SessionRepository
     {
-        private readonly string _connectionString = "Data Source=PomodoroPlant.db";
-
-        public SessionRepository()
-        {
-            EnsureDatabase();
-        }
-
-        private void EnsureDatabase()
-        {
-            using var conn = new SqliteConnection(_connectionString);
-            conn.Open();
-
-            var sql =
-                @"
-                CREATE TABLE IF NOT EXISTS Sessions (
-                    SessionId       INTEGER PRIMARY KEY AUTOINCREMENT,
-                    UserId          INTEGER NOT NULL,
-                    Mode            TEXT NOT NULL,
-                    DurationSeconds INTEGER NOT NULL,
-                    CompletedAt     TEXT NOT NULL
-                );
-            ";
-
-            using var cmd = new SqliteCommand(sql, conn);
-            cmd.ExecuteNonQuery();
-        }
+        private readonly string _connectionString = "Data Source=PomodoroPlant.db;";
 
         public async Task LogSessionAsync(int userId, string mode, int durationSeconds)
         {
@@ -66,14 +41,14 @@ namespace PomodoroPlant.Repositories
             // 1) Basic aggregates
             const string aggSql =
                 @"
-                SELECT 
-                    COUNT(*) AS TotalSessions,
-                    IFNULL(SUM(CASE WHEN Mode = 'focus' THEN DurationSeconds ELSE 0 END), 0) AS FocusSeconds,
-                    COUNT(DISTINCT date(CompletedAt)) AS ActiveDays,
-                    IFNULL(SUM(DurationSeconds), 0) AS TotalSeconds
-                FROM Sessions
-                WHERE UserId = $UserId;
-            ";
+                        SELECT 
+                            COUNT(*) AS TotalSessions,
+                            IFNULL(SUM(CASE WHEN Mode = 'focus' THEN DurationSeconds ELSE 0 END), 0) AS FocusSeconds,
+                            COUNT(DISTINCT date(CompletedAt)) AS ActiveDays,
+                            IFNULL(SUM(DurationSeconds), 0) AS TotalSeconds
+                        FROM Sessions
+                        WHERE UserId = $UserId;
+                    ";
 
             using (var aggCmd = new SqliteCommand(aggSql, conn))
             {
@@ -92,16 +67,16 @@ namespace PomodoroPlant.Repositories
                 }
             }
 
-            // 2) Load recent sessions (last 35 days) for streak + charts
+            // 2) Load recent sessions (last 35 days) for streak + charts + achievements
             var since = DateTime.UtcNow.Date.AddDays(-35);
             const string recentSql =
                 @"
-                SELECT Mode, DurationSeconds, CompletedAt
-                FROM Sessions
-                WHERE UserId = $UserId
-                  AND CompletedAt >= $Since
-                ORDER BY CompletedAt ASC;
-            ";
+                        SELECT Mode, DurationSeconds, CompletedAt
+                        FROM Sessions
+                        WHERE UserId = $UserId
+                          AND CompletedAt >= $Since
+                        ORDER BY CompletedAt ASC;
+                    ";
 
             var recentSessions =
                 new List<(string Mode, int DurationSeconds, DateTime CompletedAt)>();
@@ -132,11 +107,167 @@ namespace PomodoroPlant.Repositories
             FillChartData(stats, focusSessions);
 
             stats.PlantsUnlocked = stats.TotalFocusHours > 0 ? 1 : 0;
-            // stats.Achievements = BuildAchievements(stats);
+
+            // 5) Build achievements from the sessions we already loaded
+            stats.Achievements = BuildAchievements(stats, recentSessions);
 
             return stats;
         }
 
+        private List<Achievement> BuildAchievements(
+            SessionStats stats,
+            List<(string Mode, int DurationSeconds, DateTime CompletedAt)> sessions
+        )
+        {
+            var achievements = new List<Achievement>();
+
+            if (sessions.Count == 0)
+                return achievements;
+
+            // Streak-based achievements (Fire/Flame SVG)
+            if (stats.DayStreak >= 1)
+            {
+                var today = DateTime.UtcNow.Date;
+                var yesterday = today.AddDays(-1);
+                var latestSessionDate = sessions.Max(s => s.CompletedAt).Date;
+                var isActiveStreak = latestSessionDate == today || latestSessionDate == yesterday;
+
+                string streakTitle;
+                if (stats.DayStreak >= 30)
+                {
+                    streakTitle = "30 Day Streak";
+                }
+                else if (stats.DayStreak >= 14)
+                {
+                    streakTitle = "14 Day Streak";
+                }
+                else if (stats.DayStreak >= 7)
+                {
+                    streakTitle = "7 Day Streak";
+                }
+                else if (stats.DayStreak >= 3)
+                {
+                    streakTitle = "3 Day Streak";
+                }
+                else
+                {
+                    streakTitle = $"{stats.DayStreak} Day Streak";
+                }
+
+                achievements.Add(
+                    new Achievement
+                    {
+                        Title = streakTitle,
+                        WhenText = isActiveStreak
+                            ? "Active now"
+                            : GetRelativeTime(latestSessionDate),
+                        IconType = "fire",
+                    }
+                );
+            }
+
+            // Hours-based achievements (Clock SVG)
+            var totalSeconds = sessions.Sum(s => s.DurationSeconds);
+            var milestoneHit = 0;
+
+            if (totalSeconds >= 360000) // 100 hours
+            {
+                milestoneHit = 100;
+            }
+            else if (totalSeconds >= 180000) // 50 hours
+            {
+                milestoneHit = 50;
+            }
+            else if (totalSeconds >= 90000) // 25 hours
+            {
+                milestoneHit = 25;
+            }
+            else if (totalSeconds >= 18000) // 5 hours
+            {
+                milestoneHit = 5;
+            }
+
+            if (milestoneHit > 0)
+            {
+                var targetSeconds = milestoneHit * 3600;
+                var runningTotal = 0;
+                DateTime? milestoneDate = null;
+
+                foreach (var session in sessions.OrderBy(s => s.CompletedAt))
+                {
+                    runningTotal += session.DurationSeconds;
+                    if (runningTotal >= targetSeconds)
+                    {
+                        milestoneDate = session.CompletedAt;
+                        break;
+                    }
+                }
+
+                var hasSessionToday = sessions.Any(s => s.CompletedAt.Date == DateTime.UtcNow.Date);
+
+                achievements.Add(
+                    new Achievement
+                    {
+                        Title = $"{milestoneHit} Hours Milestone",
+                        WhenText = hasSessionToday
+                            ? "Today"
+                            : (
+                                milestoneDate.HasValue
+                                    ? GetRelativeTime(milestoneDate.Value)
+                                    : "Recently"
+                            ),
+                        IconType = "clock",
+                    }
+                );
+            }
+
+            // Plant-based achievements
+            if (stats.PlantsUnlocked >= 5)
+            {
+                achievements.Add(
+                    new Achievement
+                    {
+                        Title = "5 Plants Unlocked!",
+                        WhenText = "Recently",
+                        IconType = "plant",
+                    }
+                );
+            }
+            else if (stats.PlantsUnlocked >= 1)
+            {
+                var firstSessionDate = sessions.Min(s => s.CompletedAt);
+                achievements.Add(
+                    new Achievement
+                    {
+                        Title = "First Plant Unlocked!",
+                        WhenText = GetRelativeTime(firstSessionDate),
+                        IconType = "plant",
+                    }
+                );
+            }
+
+            return achievements.Take(5).ToList();
+        }
+
+        private string GetRelativeTime(DateTime date)
+        {
+            var diff = DateTime.UtcNow.Date - date.Date;
+            if (diff.Days == 0)
+                return "Today";
+            if (diff.Days == 1)
+                return "Yesterday";
+            if (diff.Days < 7)
+                return $"{diff.Days} days ago";
+            if (diff.Days < 30)
+            {
+                var weeks = diff.Days / 7;
+                return $"{weeks} week{(weeks == 1 ? "" : "s")} ago";
+            }
+            var months = diff.Days / 30;
+            return $"{months} month{(months == 1 ? "" : "s")} ago";
+        }
+
+        // ...existing code...
         private int CalculateDayStreak(
             List<(string Mode, int DurationSeconds, DateTime CompletedAt)> sessions
         )
@@ -303,6 +434,47 @@ namespace PomodoroPlant.Repositories
             }
 
             return sessions;
+        }
+
+        public async Task<List<LeaderboardUser>> GetTopUsersAsync(int limit = 10)
+        {
+            var leaderboard = new List<LeaderboardUser>();
+
+            const string sql =
+                @"
+                SELECT 
+                    u.UserId,
+                    u.Name,
+                    IFNULL(SUM(s.DurationSeconds), 0) / 3600.0 AS TotalHours
+                FROM Users u
+                LEFT JOIN Sessions s ON u.UserId = s.UserId AND s.Mode = 'focus'
+                GROUP BY u.UserId, u.Name
+                ORDER BY TotalHours DESC, u.Name ASC
+                LIMIT $Limit;
+            ";
+
+            using var conn = new SqliteConnection(_connectionString);
+            using var cmd = new SqliteCommand(sql, conn);
+            cmd.Parameters.AddWithValue("$Limit", limit);
+
+            await conn.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            int rank = 1;
+            while (await reader.ReadAsync())
+            {
+                leaderboard.Add(
+                    new LeaderboardUser
+                    {
+                        UserId = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        TotalHours = reader.GetDouble(2),
+                        Rank = rank++,
+                    }
+                );
+            }
+
+            return leaderboard;
         }
     }
 }

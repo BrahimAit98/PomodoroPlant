@@ -17,8 +17,8 @@ namespace PomodoroPlant.Controllers
 
             var stats = await _sessionRepo.GetStatsForUserAsync(userId.Value);
 
-            // Add achievements based on stats
-            stats.Achievements = await GetAchievementsFromStatsAsync(userId.Value, stats);
+            // Add leaderboard
+            stats.TopUsers = await _sessionRepo.GetTopUsersAsync(10);
 
             return View(stats);
         }

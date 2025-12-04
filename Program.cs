@@ -1,3 +1,5 @@
+using PomodoroPlant.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +10,9 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddHttpClient();
 var app = builder.Build();
+
+// Initialize database once at startup
+DbInitializer.Initialize();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

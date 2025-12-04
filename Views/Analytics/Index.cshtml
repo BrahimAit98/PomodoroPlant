@@ -249,6 +249,104 @@
           }
         </div>
 
+
+
+        <!-- Leaderboard -->
+        <div class="leaderboard analytics-achievements">
+          <h2 class="analytics-section-title">
+            The Leaderboard
+          </h2>
+          @if (Model.TopUsers != null)
+          {
+            <div class="achievement-list">
+              @{
+                var currentUserId = Context.Session.GetInt32("UserId");
+              }
+              @foreach (var user in Model.TopUsers)
+              {
+                var isCurrentUser = currentUserId.HasValue && user.UserId == currentUserId.Value;
+                var itemClass = isCurrentUser ? "achievement-item achievement-item--highlight" : "achievement-item";
+
+                <div class="@itemClass">
+                  <div class="achievement-icon">
+                    @if (user.Rank == 1)
+                    {
+                      <span style="font-size: 1.5rem;">🥇</span>
+                    }
+                    else if (user.Rank == 2)
+                    {
+                      <span style="font-size: 1.5rem;">🥈</span>
+                    }
+                    else if (user.Rank == 3)
+                    {
+                      <span style="font-size: 1.5rem;">🥉</span>
+                    }
+                    else
+                    {
+                      <span style="font-size: 1.2rem; font-weight: bold; color: #fff;">@user.Rank</span>
+                    }
+                  </div>
+                  <div class="achievement-content">
+
+                    <h4 class="achievement-title">
+                      @user.Name
+                      @if (isCurrentUser)
+                      {
+                        <span style="color: #dc3545; font-size: 0.9rem;">(You)</span>
+                      }
+                    </h4>
+                    @{
+                      var userTotalMinutes = (int)Math.Round(user.TotalHours * 60);
+                    }
+                    @if (userTotalMinutes == 0)
+                    {
+                      <p class="achievement-date">No focus time yet</p>
+                    }
+                    else if (userTotalMinutes < 60)
+                    {
+                      <p class="achievement-date">@userTotalMinutes @(userTotalMinutes == 1 ? "minute" : "minutes") focused
+                      </p>
+                    }
+                    else if (userTotalMinutes < 120)
+                    {
+                      var h = userTotalMinutes / 60;
+                      var m = userTotalMinutes % 60;
+                      if (m == 0)
+                      {
+                        <p class="achievement-date">1 hour focused</p>
+                      }
+                      else
+                      {
+                        <p class="achievement-date">1 hour @m minutes focused</p>
+                      }
+                    }
+                    else
+                    {
+                      var hours = (int)Math.Floor(user.TotalHours);
+                      var minutes = (int)Math.Round((user.TotalHours - hours) * 60);
+                      if (minutes == 0)
+                      {
+                        <p class="achievement-date">@hours @(hours == 1 ? "hour" : "hours") focused</p>
+                      }
+                      else
+                      {
+                        <p class="achievement-date">@hours @(hours == 1 ? "hour" : "hours") @minutes @(minutes == 1 ? "minute" :
+                                            "minutes") focused</p>
+                      }
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          else
+          {
+            <p class="plant-status text-start text-white pb-4">
+              Be the first to start focusing and claim the top spot!
+            </p>
+          }
+        </div>
+
     </section>
   </main>
 </div>

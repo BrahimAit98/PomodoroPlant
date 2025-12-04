@@ -8,11 +8,6 @@ namespace PomodoroPlant.Models
     {
         private readonly string _connectionString = "Data Source=PomodoroPlant.db";
 
-        public UserRepository()
-        {
-            EnsureDatabase();
-        }
-
         // ---- CREATE USER ---------------------------------------
         public async Task CreateAsync(UserModel user)
         {
@@ -68,29 +63,6 @@ namespace PomodoroPlant.Models
             }
 
             return null;
-        }
-
-        // ---- DB CREATION ---------------------------------------
-        private void EnsureDatabase()
-        {
-            using var conn = new SqliteConnection(_connectionString);
-            conn.Open();
-
-            string sql =
-                @"
-                CREATE TABLE IF NOT EXISTS Users (
-                    UserId INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT NOT NULL,
-                    Email TEXT NOT NULL UNIQUE,
-                    HashedPassword TEXT NOT NULL,
-                    ArduinoId INTEGER NOT NULL DEFAULT 0,
-                    CreatedAt TEXT NOT NULL,
-                    Role TEXT NOT NULL DEFAULT 'User'
-                );
-            ";
-
-            using var cmd = new SqliteCommand(sql, conn);
-            cmd.ExecuteNonQuery();
         }
     }
 }

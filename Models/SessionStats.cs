@@ -35,5 +35,6 @@ namespace PomodoroPlant.Models
 
         // Achievements
         public List<Achievement> Achievements { get; set; } = new();
+        public List<LeaderboardUser> TopUsers { get; set; } = new List<LeaderboardUser>();
     }
 }

@@ -24,6 +24,20 @@ body {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -114,7 +128,8 @@ a {
   width: 100%;
 }
 
-.dropdown-item:hover {
+.dropdown-item:hover,
+.dropdown-item:focus {
   background-color: #cadbd3;
   color: #333;
 }
@@ -216,7 +231,7 @@ a {
 
 .plant-time {
   font-size: 3.4rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #333;
   letter-spacing: 0.06em;
 }
@@ -966,4 +981,21 @@ button:focus-visible {
     font-size: 0.7rem;
     padding: 4px 8px;
   }
+}
+
+.leaderboard {
+  background-color: #e5e7e1 !important;
+}
+
+.leaderboard .analytics-section-title,
+.leaderboard .achievement-title,
+.leaderboard .achievement-date {
+  color: #333333;
+}
+.leaderboard .achievement-item {
+  border-bottom: 0.1px solid #584c4c30;
+}
+
+.leaderboard .achievement-item:first-child {
+  border-top: 0.1px solid #584c4c30;
 }
