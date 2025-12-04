@@ -151,8 +151,20 @@ namespace PomodoroPlant.Repositories
                 .ToList();
 
             var today = DateTime.UtcNow.Date;
+            var yesterday = today.AddDays(-1);
+
+            // If no session today or yesterday, streak is broken
+            if (!daysWithSessions.Contains(today) && !daysWithSessions.Contains(yesterday))
+                return 0;
+
             int streak = 0;
             var current = today;
+
+            // Start counting from today or yesterday (whichever has a session)
+            if (!daysWithSessions.Contains(today))
+            {
+                current = yesterday;
+            }
 
             while (daysWithSessions.Contains(current))
             {
@@ -260,6 +272,37 @@ namespace PomodoroPlant.Repositories
             }
 
             return result;
+        }
+
+        public async Task<List<(DateTime SessionDate, int DurationSeconds)>> GetUserSessionsAsync(
+            int userId
+        )
+        {
+            var sessions = new List<(DateTime SessionDate, int DurationSeconds)>();
+
+            const string sql =
+                @"
+                SELECT CompletedAt, DurationSeconds
+                FROM Sessions
+                WHERE UserId = $UserId
+                ORDER BY CompletedAt ASC;
+            ";
+
+            using var conn = new SqliteConnection(_connectionString);
+            using var cmd = new SqliteCommand(sql, conn);
+            cmd.Parameters.AddWithValue("$UserId", userId);
+
+            await conn.OpenAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                var completedAt = DateTime.Parse(reader.GetString(0));
+                var durationSeconds = reader.GetInt32(1);
+                sessions.Add((completedAt, durationSeconds));
+            }
+
+            return sessions;
         }
     }
 }

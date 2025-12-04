@@ -13,6 +13,7 @@ namespace PomodoroPlant.Models
         public string Title { get; set; } = "";
         public string Description { get; set; } = "";
         public string WhenText { get; set; } = "";
+        public string IconType { get; set; }
     }
 
     public class SessionStats

@@ -5,7 +5,7 @@
   // ========== TIMER CONFIG ==========
 
   const DURATIONS = {
-    focus: 0.1 * 60,
+    focus: 25 * 60,
     short: 5 * 60,
     long: 15 * 60,
   };
