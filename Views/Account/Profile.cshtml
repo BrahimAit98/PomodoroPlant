@@ -1,0 +1,274 @@
+@{
+    ViewData["Title"] = "Account Settings";
+    ViewData["HideHeader"] = false;
+}
+
+<div class="login-page-wrapper auth profile">
+
+    <!-- Tab Navigation -->
+    <div class="profile-tabs">
+        <button type="button" class="profile-tab active" onclick="showTab('profile')">Profile</button>
+        <button type="button" class="profile-tab" onclick="showTab('timer')">Timer Settings</button>
+    </div>
+
+    <!-- Profile Tab Content -->
+    <div id="profile-tab" class="tab-content active">
+        <form method="post" class="login-form" asp-controller="Account" asp-action="UpdateAccount">
+            <div class="settings-section">
+
+                <!-- 🔹 SUCCESS MESSAGE -->
+                @if (TempData["Success"] != null)
+                {
+                    <div class="validation-summary" style="background: #d4edda; border-color: #c3e6cb;">
+                        <p style="color: #155724; margin: 10px 0 0 0; padding: 7px;">✓ @TempData["Success"]</p>
+                    </div>
+                }
+
+                <!-- 🔹 ERROR SUMMARY -->
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="validation-summary">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <p style="color:red; margin: 10px 0 0 0;">⚠ @error.ErrorMessage</p>
+                        }
+                    </div>
+                }
+
+                <label for="Name">Name</label>
+                <input type="text" id="Name" name="Name" class="login-input" placeholder="Your name"
+                    value="@ViewBag.CurrentName" required />
+
+                <label for="Email">Email</label>
+                <input type="email" id="Email" name="Email" class="login-input" placeholder="your@email.com"
+                    value="@ViewBag.CurrentEmail" required />
+
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" name="currentPassword" class="login-input"
+                    placeholder="Leave blank to keep current" />
+
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="newPassword" class="login-input"
+                    placeholder="At least 6 characters" minlength="6" />
+
+                <label for="confirmPassword">Confirm New Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="login-input"
+                    placeholder="Re-enter new password" minlength="6" />
+
+                <button type="submit" class="login-button">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Timer Settings Tab Content -->
+    <div id="timer-tab" class="tab-content">
+        <form method="post" class="login-form" asp-controller="Account" asp-action="UpdateTimerSettings">
+            <div class="settings-section">
+                <label for="focusDuration">Focus Duration (minutes)</label>
+                <input type="number" id="focusDuration" name="focusDuration" class="login-input" placeholder="25"
+                    min="1" max="120" value="@ViewBag.FocusDuration" required />
+
+                <label for="shortBreak">Short Break (minutes)</label>
+                <input type="number" id="shortBreak" name="shortBreak" class="login-input" placeholder="5" min="1"
+                    max="30" value="@ViewBag.ShortBreak" required />
+
+                <label for="longBreak">Long Break (minutes)</label>
+                <input type="number" id="longBreak" name="longBreak" class="login-input" placeholder="15" min="1"
+                    max="60" value="@ViewBag.LongBreak" required />
+
+                <label for="sessionsUntilLongBreak">Focus Sessions Until Long Break</label>
+                <input type="number" id="sessionsUntilLongBreak" name="sessionsUntilLongBreak" class="login-input"
+                    placeholder="4" min="1" max="10" value="@ViewBag.SessionsUntilLongBreak" required />
+
+                <!-- Auto-start Toggle -->
+                <div class="toggle-container">
+                    <label class="toggle-label">
+                        <span class="toggle-text">Auto-continue Pomodoro cycle</span>
+
+                        <input type="checkbox" id="autoStartBreaks" name="autoStartBreaks" value="true"
+                            @(ViewBag.AutoStartBreaks == true ? "checked" : "") class="toggle-checkbox" />
+
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="login-button">Save Timer Settings</button>
+                <button type="button" class="reset-button" onclick="resetToDefaults()">Reset to Defaults</button>
+            </div>
+        </form>
+    </div>
+
+    <p class="register-link-text" style="margin-top: 30px;">
+        <a asp-controller="Pomodoro" asp-action="Index" class="register-link">← Back to Pomodoro</a>
+    </p>
+</div>
+
+<script>
+    function showTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelectorAll('.profile-tab').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Show selected tab
+        document.getElementById(tabName + '-tab').classList.add('active');
+        event.target.classList.add('active');
+    }
+
+    function resetToDefaults() {
+        document.getElementById('focusDuration').value = 25;
+        document.getElementById('shortBreak').value = 5;
+        document.getElementById('longBreak').value = 15;
+        document.getElementById('sessionsUntilLongBreak').value = 4;
+    }
+</script>
+<style>
+    .profile-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+
+    .profile-tab {
+        background: transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .profile-tab:hover {
+        color: #333;
+    }
+
+    .profile-tab.active {
+        color: #215f3a;
+        border-bottom-color: #215f3a;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .settings-section {
+        border-bottom: none;
+    }
+
+    .settings-section-title {
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .settings-hint {
+        color: #666;
+        font-size: 0.85rem;
+        margin: -5px 0 15px 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .reset-button {
+        background-color: transparent;
+        color: #666;
+        border: 2px solid #e0e0e0;
+        padding: 12px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        transition: all 0.2s ease;
+    }
+
+    .reset-button:hover {
+        background-color: #f5f5f5;
+        border-color: #ccc;
+    }
+
+    /* Toggle Switch Styles */
+    .toggle-container {
+        margin: 20px 0;
+    }
+
+    .toggle-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        padding: 16px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 2px solid #e0e0e0;
+        transition: all 0.2s ease;
+    }
+
+    .toggle-label:hover {
+        border-color: #215f3a;
+        background: #f0f7f3;
+    }
+
+    .toggle-checkbox {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .toggle-text {
+        font-weight: 600;
+        color: #333;
+        font-size: 1rem;
+        flex: 1;
+    }
+
+    .toggle-slider {
+        position: relative;
+        width: 50px;
+        height: 26px;
+        background-color: #ccc;
+        border-radius: 26px;
+        transition: background-color 0.3s;
+        flex-shrink: 0;
+    }
+
+    .toggle-slider::before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        border-radius: 50%;
+        top: 3px;
+        left: 3px;
+        transition: transform 0.3s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-checkbox:checked+.toggle-slider {
+        background-color: #215f3a;
+    }
+
+    .toggle-checkbox:checked+.toggle-slider::before {
+        transform: translateX(24px);
+    }
+
+    .profile {
+        position: relative;
+        top: auto;
+        transform: translate(-50%, 0%);
+    }
+</style>

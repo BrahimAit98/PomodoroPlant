@@ -6,7 +6,7 @@ namespace PomodoroPlant.Data
     {
         private static readonly object _lock = new object();
         private static bool _initialized = false;
-        private const string ConnectionString = "Data Source=PomodoroPlant.db";
+        public const string ConnectionString = "Data Source=PomodoroPlant.db";
 
         public static void Initialize()
         {
@@ -66,7 +66,35 @@ namespace PomodoroPlant.Data
                     cmd.ExecuteNonQuery();
                 }
 
+                // Add timer settings columns if they don't exist
+                AddColumnIfNotExists(conn, "Users", "FocusDuration", "INTEGER DEFAULT 25");
+                AddColumnIfNotExists(conn, "Users", "ShortBreak", "INTEGER DEFAULT 5");
+                AddColumnIfNotExists(conn, "Users", "LongBreak", "INTEGER DEFAULT 15");
+                AddColumnIfNotExists(conn, "Users", "SessionsUntilLongBreak", "INTEGER DEFAULT 4");
+                AddColumnIfNotExists(conn, "Users", "AutoStartBreaks", "INTEGER DEFAULT 0");
+
                 _initialized = true;
+                Console.WriteLine("Database initialized successfully!");
+            }
+        }
+
+        private static void AddColumnIfNotExists(
+            SqliteConnection conn,
+            string tableName,
+            string columnName,
+            string columnDefinition
+        )
+        {
+            try
+            {
+                var sql = $"ALTER TABLE {tableName} ADD COLUMN {columnName} {columnDefinition};";
+                using var cmd = new SqliteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                Console.WriteLine($"Added column {columnName} to {tableName}");
+            }
+            catch (SqliteException)
+            {
+                // Column already exists, ignore
             }
         }
     }
