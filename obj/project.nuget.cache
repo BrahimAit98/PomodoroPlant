@@ -48,5 +48,15 @@
     "/Users/iqra/.nuget/packages/system.security.permissions/9.0.0/system.security.permissions.9.0.0.nupkg.sha512",
     "/Users/iqra/.nuget/packages/system.windows.extensions/9.0.0/system.windows.extensions.9.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problem reading the cache file /Users/iqra/Desktop/Projects/PomodoroPlant/obj/project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "/Users/iqra/Desktop/Projects/PomodoroPlant/PomodoroPlant.csproj",
+      "warningLevel": 1,
+      "filePath": "/Users/iqra/Desktop/Projects/PomodoroPlant/PomodoroPlant.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

@@ -23,7 +23,6 @@ body {
 .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
-
 .h1,
 .h2,
 .h3,
@@ -998,4 +997,438 @@ button:focus-visible {
 
 .leaderboard .achievement-item:first-child {
   border-top: 0.1px solid #584c4c30;
+}
+
+/* ========== Webshop ========== */
+.main-content {
+  max-width: 680px;
+  margin: auto;
+}
+
+.hero-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 100px;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.hero-tomato-card {
+  background-color: #e6e7e1;
+  border-radius: 12px;
+  width: 550px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .hero-tomato-card {
+    width: 90%;
+    height: auto;
+  }
+}
+
+.hero-tomato-card img {
+  max-width: 80%;
+  height: auto;
+}
+
+.btn {
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background-color: #198754;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.08s ease-out, box-shadow 0.2s;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid #333333;
+  color: #333333;
+  padding: 10px 28px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, transform 0.08s ease-out,
+    box-shadow 0.2s;
+}
+.btn:hover {
+  background-color: #cadbd3;
+  color: #333;
+  transform: translateY(-1px);
+}
+
+.hero-left {
+  text-align: center;
+}
+.hero-title {
+  font-size: 3rem;
+  text-align: center;
+}
+
+/* =====================================
+   BUY BUZZER PAGE
+   ===================================== */
+
+.buy-page {
+  margin-top: 100px !important;
+}
+
+/* Two columns: images left, text right */
+.buy-layout {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  margin: auto !important;
+  align-items: center;
+  padding: 20px;
+}
+
+/* LEFT: big image + thumbs */
+.buy-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buy-main-image-card {
+  background-color: #e6e7e1;
+  border-radius: 16px;
+  padding: 40px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buy-main-image {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.buy-thumbs {
+  display: flex;
+  gap: 16px;
+}
+
+.buy-thumb-card {
+  flex: 1;
+  padding: 16px 10px;
+  border-radius: 12px;
+  background-color: #e6e7e1;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease, transform 0.15s ease,
+    background-color 0.2s ease;
+}
+
+.buy-thumb-card img {
+  max-width: 80px;
+  height: auto;
+  display: block;
+}
+
+.buy-thumb-card:hover {
+  background-color: #cadbd3;
+  transform: translateY(-2px);
+}
+
+.buy-thumb-card.is-active {
+  border-color: #215f3a;
+  background-color: #cadbd3;
+}
+
+/* RIGHT: title, price, cards */
+.buy-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.buy-title {
+  font-size: 42px;
+  line-height: 1.05;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.buy-subtitle {
+  font-size: 14px;
+  color: #333333;
+  max-width: 420px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buy-price-row {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buy-price {
+  font-size: 36px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.buy-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  font-size: 13px;
+  color: #333333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.buy-benefit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.buy-benefit-icon {
+  font-size: 16px;
+  color: #215f3a;
+}
+
+/* Feature cards row */
+.buy-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.buy-feature-card {
+  background-color: #e6e7e1;
+  border-radius: 12px;
+  padding: 20px 18px;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.buy-feature-card:hover {
+  background-color: #cadbd3;
+  transform: translateY(-2px);
+}
+
+.buy-feature-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #333333;
+  font-family: "Nohemi Bold";
+}
+
+/* Specs cards */
+.buy-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.buy-spec-card {
+  background-color: #e6e7e1;
+  border-radius: 12px;
+  padding: 20px 18px;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.buy-spec-card:hover {
+  background-color: #cadbd3;
+  transform: translateY(-2px);
+}
+
+.buy-spec-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333333;
+  font-family: "Nohemi Bold";
+}
+
+.buy-spec-card ul {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 0;
+  color: #333333;
+}
+
+/* Responsive for tablets/phones */
+@media (max-width: 1024px) {
+  .buy-layout {
+    grid-template-columns: 1fr;
+    max-width: 720px;
+    margin-top: 96px;
+  }
+}
+
+@media (max-width: 768px) {
+  .buy-layout {
+    margin-top: 90px;
+    padding: 0;
+  }
+
+  .buy-feature-grid,
+  .buy-specs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .buy-main-image {
+    max-width: 100%;
+  }
+}
+
+/* =====================================
+   ACTIVATION PAGE
+   ===================================== */
+
+.activation-page {
+  min-height: 100vh;
+  padding: 120px 80px 56px; /* room for fixed nav */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.activation-inner {
+  max-width: 720px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Headline + subtitle */
+
+.activation-title {
+  font-size: clamp(2.4rem, 3.4vw, 2.9rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.activation-subtitle {
+  font-size: 0.98rem;
+  color: #333;
+  margin-bottom: 32px;
+}
+
+/* Code boxes */
+
+.activation-code-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.activation-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  border: 1px solid #ddcfc0;
+  background-color: #fcf7f0;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.1s ease;
+}
+
+.activation-box:focus {
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(31, 77, 51, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Button */
+
+.activation-submit {
+  margin-top: 4px;
+}
+
+/* Decorative leaves – similar style as other pages */
+
+.activation-page::before,
+.activation-page::after {
+  content: "";
+  position: absolute;
+  background-image: url("../img/homeplant.png.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+  opacity: 0.96;
+}
+
+/* Bottom-left cluster */
+.activation-page::before {
+  width: 350px;
+  height: 350px;
+  bottom: -3px;
+  left: -28px;
+  transform: rotate(-8deg);
+}
+
+/* Right-side cluster */
+.activation-page::after {
+  width: 360px;
+  height: 332px;
+  top: 80px;
+  right: -20px;
+  transform: rotate(220deg);
+}
+
+/* Right-side leaves (uses same image, flipped) */
+.onboarding-leaves-right {
+  position: absolute;
+  top: 170px;
+  right: 0px;
+  width: 360px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  transform: scaleX(-1) rotate(60deg);
+  opacity: 0.96;
+}
+
+/* Responsive tweaks */
+
+@media (max-width: 768px) {
+  .activation-page {
+    padding: 110px 20px 48px;
+  }
+
+  .activation-code-inputs {
+    gap: 8px;
+  }
+
+  .activation-box {
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
 }

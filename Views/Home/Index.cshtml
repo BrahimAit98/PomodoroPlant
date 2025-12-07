@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Onboarding";
+}
+
+<main class="onboarding-page main-content">
+
+    <div class="hero-main">
+
+        <section class="hero-left">
+            <h1 class="hero-title">
+                The Pomodoro Buzzer that transforms focus into growth.
+
+            </h1>
+            <p class="hero-subtitle">
+                A real buzzer. A digital plant. One simple tomato timer.
+            </p>
+
+            <div class="onboarding-actions-shadow">
+                <div class="onboarding-actions">
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline">
+                        Get started
+                    </a>
+
+                    <a asp-controller="BuyBuzzer" asp-action="Index" class="btn">
+                        Buy the buzzer
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+
+        <div class="hero-tomato-card">
+            <img src="~/images/pomodoro.png" class="hero-tomato-img" alt="Tomato timer" />
+        </div>
+
+
+    </div>
+</main>
