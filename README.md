@@ -100,15 +100,15 @@ https://localhost:5001
 
 ## Screenshots
 
-![Screenshot 1](wwwroot/images/screenshot1.png)
-![Screenshot 2](wwwroot/images/screenshot2.png)
-![Screenshot 3](wwwroot/images/screenshot3.png)
-![Screenshot 4](wwwroot/images/screenshot4.png)
-![Screenshot 5](wwwroot/images/screenshot5.png)
-![Screenshot 6](wwwroot/images/screenshot6.png)
-![Screenshot 7](wwwroot/images/screenshot7.png)
-![Screenshot 8](wwwroot/images/screenshot8.png)
-![Screenshot 9](wwwroot/images/screenshot9.png)
+![Screenshot 1](wwwroot/Images/screenshot1.png)
+![Screenshot 2](wwwroot/Images/screenshot2.png)
+![Screenshot 3](wwwroot/Images/screenshot3.png)
+![Screenshot 4](wwwroot/Images/screenshot4.png)
+![Screenshot 5](wwwroot/Images/screenshot5.png)
+![Screenshot 6](wwwroot/Images/screenshot6.png)
+![Screenshot 7](wwwroot/Images/screenshot7.png)
+![Screenshot 8](wwwroot/Images/screenshot8.png)
+![Screenshot 9](wwwroot/Images/screenshot9.png)
 
 ---
 
